@@ -1,0 +1,8 @@
+{
+  "name": "development-flow",
+  "description": "Research-driven development workflow with kb-backed planning, TDD implementation, and codebase research",
+  "version": "1.0.0",
+  "author": {
+    "name": "Misha Manulis"
+  }
+}

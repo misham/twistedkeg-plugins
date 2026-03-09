@@ -1,0 +1,18 @@
+{
+  "name": "twistedkeg-plugins",
+  "owner": {
+    "name": "Misha Manulis"
+  },
+  "plugins": [
+    {
+      "name": "thorough-review",
+      "source": "./plugins/thorough-review",
+      "description": "Source-first, verification-oriented code review with self-improving feedback loops"
+    },
+    {
+      "name": "development-flow",
+      "source": "./plugins/development-flow",
+      "description": "Research-driven development workflow with kb-backed planning, TDD implementation, and codebase research"
+    }
+  ]
+}
