@@ -35,8 +35,9 @@ plugins/
       implement_plan.md
       compact_plan.md
       commit.md
-    hooks/session-start.md        # Auto-downloads kb binary from GitHub releases
+    hooks/hooks.json              # Command hook: auto-downloads kb binary at session start
     scripts/
+      install-kb.sh               # Downloads/updates kb binary from GitHub releases
       kb_import_and_cleanup.sh
       spec_metadata.sh
     skills/
