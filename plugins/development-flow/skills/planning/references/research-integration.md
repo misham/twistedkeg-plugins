@@ -12,6 +12,7 @@ ${CLAUDE_PLUGIN_ROOT}/bin/kb search "<relevant terms>" --db kb.db --plain
 - Prior research on the same area of code
 - Previous plans that touched similar components
 - Related architectural decisions
+- Requirements documents (type `requirements`) that define what to build and why
 
 ### How to use results:
 - Note IDs and titles of relevant documents — don't read them inline

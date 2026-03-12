@@ -9,6 +9,7 @@ The `kb` CLI is available at `${CLAUDE_PLUGIN_ROOT}/bin/kb`. The database path s
 ${CLAUDE_PLUGIN_ROOT}/bin/kb search "<query>" --db kb.db --plain
 ${CLAUDE_PLUGIN_ROOT}/bin/kb search "<query>" -t research --db kb.db --plain
 ${CLAUDE_PLUGIN_ROOT}/bin/kb search "<query>" -t plan --db kb.db --plain
+${CLAUDE_PLUGIN_ROOT}/bin/kb search "<query>" -t requirements --db kb.db --plain
 ```
 
 ### Get document by ID

@@ -27,6 +27,7 @@ The `kb` CLI is available at `${CLAUDE_PLUGIN_ROOT}/bin/kb`. The database path s
 Key commands:
 - `${CLAUDE_PLUGIN_ROOT}/bin/kb search <query> --db kb.db --plain` — Search existing knowledge
 - `${CLAUDE_PLUGIN_ROOT}/bin/kb search <query> -t research --db kb.db --plain` — Search only research documents
+- `${CLAUDE_PLUGIN_ROOT}/bin/kb search <query> -t requirements --db kb.db --plain` — Search requirements documents
 - `${CLAUDE_PLUGIN_ROOT}/bin/kb list --db kb.db --plain` — List all documents
 - `${CLAUDE_PLUGIN_ROOT}/bin/kb list -t research --db kb.db --plain` — List research documents
 - `${CLAUDE_PLUGIN_ROOT}/bin/kb get <id> --db kb.db --plain` — Get a document by ID
@@ -54,6 +55,7 @@ If `$ARGUMENTS` was provided, proceed immediately with it as the research query.
 
 2. **Search existing knowledge base for prior research:**
    - Run `${CLAUDE_PLUGIN_ROOT}/bin/kb search "<relevant terms>" --db kb.db --plain` to find related prior research
+   - Run `${CLAUDE_PLUGIN_ROOT}/bin/kb search "<relevant terms>" -t requirements --db kb.db --plain` to find related requirements documents
    - Note the IDs and titles of relevant documents — do NOT read them inline with `kb get`
    - These will be analyzed by background agents in step 4
    - Use prior findings as supplementary context, but always verify against live code

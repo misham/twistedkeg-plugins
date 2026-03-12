@@ -19,6 +19,7 @@ Key commands:
 - `${CLAUDE_PLUGIN_ROOT}/bin/kb search <query> --db kb.db --plain` — Search existing knowledge
 - `${CLAUDE_PLUGIN_ROOT}/bin/kb search <query> -t plan --db kb.db --plain` — Search only plan documents
 - `${CLAUDE_PLUGIN_ROOT}/bin/kb search <query> -t research --db kb.db --plain` — Search only research documents
+- `${CLAUDE_PLUGIN_ROOT}/bin/kb search <query> -t requirements --db kb.db --plain` — Search requirements documents
 - `${CLAUDE_PLUGIN_ROOT}/bin/kb get <id> --db kb.db --plain` — Get a document by ID
 
 ## Initial Response
@@ -60,8 +61,9 @@ Then wait for the user's input.
    - **CRITICAL**: DO NOT spawn sub-tasks before reading these files yourself in the main context
    - **NEVER** read files partially - if a file is mentioned, read it completely
 
-2. **Search existing knowledge base for prior research and plans:**
+2. **Search existing knowledge base for prior research, plans, and requirements:**
    - Run `${CLAUDE_PLUGIN_ROOT}/bin/kb search "<relevant terms>" --db kb.db --plain` to find related prior work
+   - Run `${CLAUDE_PLUGIN_ROOT}/bin/kb search "<relevant terms>" -t requirements --db kb.db --plain` to find related requirements documents
    - Note the IDs and titles of relevant documents — do NOT read them inline with `kb get`
    - These will be analyzed by background agents in step 3
    - Use prior findings as supplementary context, but always verify against live code

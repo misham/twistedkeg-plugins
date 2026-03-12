@@ -30,6 +30,7 @@ plugins/
     agents/                       # 6 specialized sub-agents for parallel research
     bin/                          # kb binary (auto-downloaded by SessionStart hook)
     commands/
+      gather_requirements.md
       research_codebase.md
       create_plan.md
       implement_plan.md
@@ -41,6 +42,12 @@ plugins/
       kb_import_and_cleanup.sh
       spec_metadata.sh
     skills/
+      requirements/SKILL.md       # Interactive requirements gathering
+        references/
+          document-template.md
+          conversation-techniques.md
+          review-criteria.md
+          kb-usage.md
       research/SKILL.md           # Codebase research methodology
       planning/SKILL.md           # Implementation plan creation
       implementation/SKILL.md     # TDD-driven plan execution
@@ -58,7 +65,7 @@ plugins/
 
 ## Key Architecture Decisions (development-flow)
 
-- **Research-first workflow:** Every feature starts with `/research_codebase`, then `/create_plan`, then `/implement_plan`. Commands enforce this sequence.
+- **Research-first workflow:** Every feature starts with `/gather_requirements`, then `/research_codebase`, then `/create_plan`, then `/implement_plan`. Commands enforce this sequence.
 - **KB-backed context:** Research and plans are stored in a `kb` database for persistent cross-session context. The kb binary is auto-downloaded via a SessionStart hook.
 - **Parallel sub-agent dispatch:** Research commands spawn specialized agents (locator, analyzer, pattern-finder) in parallel. Agents are documentarians — they describe what exists without critiquing.
 - **Skills extract methodology from commands:** Each command references a corresponding skill for its methodology. Skills have reference files for detailed rules (TDD cycle, phase gates, plan template, etc.).
