@@ -27,12 +27,14 @@ Create detailed implementation plans through interactive research, kb-backed con
 2. Search kb for prior research and plans (see `references/research-integration.md`)
 3. Spawn parallel research agents (codebase-locator, codebase-analyzer, codebase-pattern-finder)
 4. Spawn background research-analyzer agents for relevant kb documents
-5. Read newly identified files from research results
-6. Present informed understanding with focused questions
-7. Create research todo list and iterate on design options
-8. Build plan outline, get user feedback on structure
-9. Write plan to `docs/ai/plans/` using template (see `references/plan-template.md`)
-10. Iterate based on user feedback until approved
+5. While agents run: assess complexity from loaded input, propose design phase if 2+ signals detected, user confirms
+6. Read newly identified files from research results
+7. Present informed understanding with focused questions
+8. Create research todo list and iterate on design options (lightweight) or full architecture exploration (design phase)
+9. If design phase: present Architecture Design section for approval before proceeding
+10. Build plan outline, get user feedback on structure
+11. Write plan to `docs/ai/plans/` using template (see `references/plan-template.md`)
+12. Iterate based on user feedback until approved
 
 ## Key Rules
 

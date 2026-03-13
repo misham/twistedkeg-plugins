@@ -88,19 +88,54 @@ Then wait for the user's input.
    - Return detailed explanations with file:line references
    - Find tests and examples
 
-4. **Read all newly identified files from research tasks**:
+4. **While research agents run, assess complexity and propose design phase**:
+
+   Based on the input files already read, assess whether this feature warrants a deeper design phase.
+
+   **Complexity signals** (if 2+ are present, propose the design phase):
+
+   | Signal | Example |
+   |--------|---------|
+   | Multiple components/systems affected | Touches 3+ distinct modules or services |
+   | New architectural patterns | Introducing something the codebase doesn't already do |
+   | Cross-cutting concerns | Security, observability, performance requirements spanning the change |
+   | Data model changes | New schemas, migrations, relationships |
+   | Integration points | External APIs, message queues, third-party services |
+   | Solution ambiguity | Requirements are clear on *what* but multiple valid *hows* exist |
+
+   **If complexity signals are detected**, propose the design phase:
+
+   ```
+   Based on my initial read, this feature involves [signals detected]. I'd like to do a
+   deeper design phase after codebase research to explore architectural approaches before
+   writing the implementation phases. This will add an Architecture Design section to the
+   plan with component design, data flow, and trade-off analysis.
+
+   Sound good, or would you prefer I keep this lightweight?
+   ```
+
+   **User can override in either direction:**
+   - "Yes, let's do the full design" → activates design phase
+   - "No, keep it simple" → stays with existing lightweight flow
+   - User can also request design explicitly at any point: "I want a full design for this one"
+
+   **If no complexity signals detected**, continue with the existing lightweight flow. Do not mention the design phase unless the user asks.
+
+   Note the user's decision — it determines whether Step 3 ends with the lightweight "Design Options" presentation or the full design phase.
+
+5. **Read all newly identified files from research tasks**:
    - After all research tasks complete (including background kb analyzers), read any newly identified codebase files not already in context
    - Read them FULLY into the main context
    - Use kb analyzer summaries directly — no need to re-read full kb documents
    - This ensures you have complete understanding before proceeding
 
-5. **Analyze and verify understanding**:
+6. **Analyze and verify understanding**:
    - Cross-reference the ticket or request requirements with actual code
    - Identify any discrepancies or misunderstandings
    - Note assumptions that need verification
    - Determine true scope based on codebase reality
 
-6. **Present informed understanding and focused questions**:
+7. **Present informed understanding and focused questions**:
    ```
    Based on the ticket or request and my research of the codebase, I understand we need to [accurate summary].
 
@@ -117,7 +152,11 @@ Then wait for the user's input.
 
    Only ask questions that you genuinely cannot answer through code investigation.
 
-### Step 2: Research & Discovery
+### Step 2: Complexity Assessment Decision
+
+The complexity assessment from Step 1 sub-step 4 is presented to the user during the research agent wait time. The user's response (confirm, decline, or no assessment needed) is noted before research results come back. This decision gates whether Step 3 uses the lightweight or full design flow.
+
+### Step 3: Research & Discovery
 
 After getting initial clarifications:
 
@@ -152,6 +191,8 @@ After getting initial clarifications:
 4. **Wait for ALL sub-tasks to complete** before proceeding
 
 5. **Present findings and design options**:
+
+   **If design phase is NOT active** (simple feature — existing behavior):
    ```
    Based on my research, here's what I found:
 
@@ -170,7 +211,52 @@ After getting initial clarifications:
    Which approach aligns best with your vision?
    ```
 
-### Step 3: Plan Structure Development
+   **If design phase IS active** (complex feature):
+
+   Using the research findings, explore 2-3 architectural approaches. For each approach, consider:
+   - How it fits with existing codebase patterns discovered in research
+   - Component breakdown and boundaries
+   - Data flow implications
+   - Trade-offs (complexity, performance, maintainability, extensibility)
+
+   Present the full Architecture Design section for review:
+
+   ```
+   Based on my codebase research, here's the Architecture Design for this feature:
+
+   ## Approaches Considered
+
+   **Approach 1: [Name]**
+   - Description: [How it works]
+   - Pros: [Benefits]
+   - Cons: [Drawbacks]
+
+   **Approach 2: [Name]**
+   - Description: [How it works]
+   - Pros: [Benefits]
+   - Cons: [Drawbacks]
+
+   [Approach 3 if warranted]
+
+   ## Recommended Approach: [Name]
+   [Rationale — why this over the alternatives]
+
+   ## Component Design
+   [Components with responsibilities and interfaces]
+
+   ## Data Flow
+   [How data moves through the system]
+
+   [Additional sections as relevant: Data Model, Error Handling, Integration Points, Cross-Cutting Concerns]
+
+   Does this architecture look right? I'll incorporate your feedback before writing the implementation phases.
+   ```
+
+   Wait for user approval of the architecture before proceeding to Step 4.
+   Incorporate any feedback into the design before moving on.
+   The approved Architecture Design section will be included in the plan document as-is.
+
+### Step 4: Plan Structure Development
 
 Once aligned on approach:
 
@@ -191,7 +277,7 @@ Once aligned on approach:
 
 2. **Get feedback on structure** before writing details
 
-### Step 4: Detailed Plan Writing
+### Step 5: Detailed Plan Writing
 
 After structure approval:
 
@@ -204,152 +290,15 @@ After structure approval:
      - With ticket: `2025-01-08-ENG-1478-parent-child-tracking.md`
      - Without ticket: `2025-01-08-improve-error-handling.md`
 
-2. **Use this template structure**:
+2. **Use the plan template** from `skills/planning/references/plan-template.md` as the structure.
+   Read the template file and follow its section structure exactly.
 
-````markdown
-# [Feature/Task Name] Implementation Plan
+3. **If the design phase was active**, include the "Architecture Design" section in the plan
+   (positioned between "Implementation Approach" and "API Contract"), populated with the
+   approved design from Step 3. If the design phase was not active, omit the Architecture
+   Design section entirely.
 
-## Research documents
-
-[List of research documents used to generate the plan, including kb document IDs if applicable]
-
-## Overview
-
-[Brief description of what we're implementing and why]
-
-## Current State Analysis
-
-[What exists now, what's missing, key constraints discovered]
-
-## Desired End State
-
-[A Specification of the desired end state after this plan is complete, and how to verify it]
-
-### Key Discoveries:
-- [Important finding with file:line reference]
-- [Pattern to follow]
-- [Constraint to work within]
-
-## What We're NOT Doing
-
-[Explicitly list out-of-scope items to prevent scope creep]
-
-## Implementation Approach
-
-[High-level strategy and reasoning]
-
-## API Contract
-
-[If this plan involves new or modified API endpoints, define the contract here. Remove this section if no API changes are needed.]
-
-### [METHOD] /api/[resource]
-**Request:**
-```json
-{
-  "field": "value"
-}
-```
-
-**Response ([status code]):**
-```json
-{
-  "id": 123,
-  "field": "value"
-}
-```
-
-**Error Response ([status code]):**
-```json
-{
-  "errors": { "field": ["message"] }
-}
-```
-
-### [METHOD] /api/[resource]?[query_params]
-**Query Parameters:**
-- `include` - Comma-separated related resources
-- `filter[field]` - Filter by field
-
-**Response (200 OK):**
-```json
-{
-  "data": [{ "id": 123, "field": "value" }],
-  "meta": { "total": 42 }
-}
-```
-
-## Phase 1: [Descriptive Name]
-
-### Overview
-[What this phase accomplishes]
-
-### Changes Required:
-
-#### 1. [Component/File Group]
-**File**: `path/to/file.ext`
-**Changes**: [Summary of changes]
-
-```[language]
-// Specific code to add/modify
-```
-
-### Success Criteria:
-- [ ] Each change follows red/green TDD (failing test → implementation → refactor)
-- [ ] Migration applies cleanly: `make migrate`
-- [ ] Unit tests pass: `make test-component`
-- [ ] Type checking passes: `npm run typecheck`
-- [ ] Linting passes: `make lint`
-- [ ] Integration tests pass: `make test-integration`
-
----
-
-## Phase 2: [Descriptive Name]
-
-[Similar structure...]
-
----
-
-## Final Manual Verification
-
-_Run once after all phases are complete and all automated checks pass._
-
-- [ ] Feature works as expected when tested via UI
-- [ ] Performance is acceptable under load
-- [ ] Edge case handling verified manually
-- [ ] No regressions in related features
-
----
-
-## Testing Strategy
-
-### Unit Tests:
-- [What to test]
-- [Key edge cases]
-
-### Integration Tests:
-- [End-to-end scenarios]
-
-### Manual Testing Steps:
-1. [Specific step to verify feature]
-2. [Another verification step]
-3. [Edge case to test manually]
-
-## Performance Considerations
-
-[Any performance implications or optimizations needed]
-
-## Migration Notes
-
-[If applicable, how to handle existing data/systems]
-
-## References
-
-- ticket: `<Linear or GitHub ticket>`
-- Related research: kb document IDs and `docs/ai/research/[relevant].md`
-- Similar implementation: `[file:line]`
-````
-
-### Step 5: Sync and Review
+### Step 6: Sync and Review
 
 1. **Present the draft plan location**:
    ```

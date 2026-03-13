@@ -46,6 +46,50 @@ Examples:
 
 [High-level strategy and reasoning]
 
+## Architecture Design
+
+_Include this section only when the design phase is triggered by complexity assessment. Remove for simple features._
+
+### Approaches Considered
+
+[For each approach (2-3):]
+
+**Approach N: [Name]**
+- **Description**: [How this approach works]
+- **Pros**: [Benefits]
+- **Cons**: [Drawbacks]
+- **Trade-offs**: [What you gain vs. what you give up]
+
+### Chosen Approach
+
+**[Name of chosen approach]**
+
+[Rationale for selection — why this approach over the alternatives. Reference specific trade-offs that made the difference.]
+
+### Component Design
+
+[Components with responsibilities, interfaces, and dependencies. Scale to complexity — a few sentences per component if straightforward, up to 200-300 words if nuanced.]
+
+### Data Model
+
+[Schemas, relationships, storage decisions. Only include if the feature involves data model changes.]
+
+### Data Flow
+
+[How data moves through the system from input to output. Trace the path through components.]
+
+### Error Handling Strategy
+
+[Failure modes, recovery approaches, retry policies. Only include if the feature has non-trivial error scenarios.]
+
+### Integration Points
+
+[How this design connects to existing systems. Only include if there are external or cross-module integration concerns.]
+
+### Cross-Cutting Concerns
+
+[Security, observability, performance, scalability implications. Only include sections that are relevant.]
+
 ## API Contract
 
 [If this plan involves new or modified API endpoints, define the contract here. Remove this section if no API changes are needed.]
