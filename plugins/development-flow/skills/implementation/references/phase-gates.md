@@ -35,6 +35,10 @@ Reply "done" when manual verification is complete.
 
 3. **Wait for user confirmation** before marking plan as fully complete
 
+## Next Step
+
+After the Plan Completion Gate is confirmed, suggest running `/validate` to perform systematic validation before committing with `/commit`.
+
 ## Handling Mismatches
 
 When the plan doesn't match reality:

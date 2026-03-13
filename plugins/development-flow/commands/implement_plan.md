@@ -95,6 +95,8 @@ Manual verification steps from plan:
 - [ ] Step 2
 - [ ] ...
 
+Next step: run `/validate` to perform systematic validation before committing.
+
 Reply "done" when manual verification is complete.
 ═══════════════════════════════════════════════════════
 

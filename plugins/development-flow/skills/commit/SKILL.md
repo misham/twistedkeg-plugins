@@ -12,6 +12,10 @@ version: 1.0.0
 
 Create git commits for changes made during the current session.
 
+## Prerequisites
+
+Validation (`/validate`) should have been run before committing. If the user hasn't mentioned running validation, remind them it's available.
+
 ## Process
 
 1. **Review what changed** — check conversation history and run `git status` / `git diff`
