@@ -36,13 +36,32 @@ Draw the line explicitly. Use the Is/Is Not pattern:
 - It DOES [key behavior]
 - It does NOT [explicit exclusion]
 
-### 5. Acceptance Criteria
+### 5. Propose Approaches
+Once the problem and scope are clear, propose 2-3 approaches with trade-offs before locking down requirements.
+
+> "I see a few ways we could approach this. Let me lay them out with trade-offs, and we can pick the direction before nailing down the details."
+
+For each approach:
+- **Name** — a short, memorable label
+- **How it works** — 2-3 sentences describing the approach
+- **Trade-offs** — what you gain and what you give up
+- **Recommendation** — lead with your recommended approach and explain why
+
+Rules:
+- Always present at least 2 approaches, max 3
+- Include a "simplest possible" approach as one option — it anchors scope
+- Make trade-offs concrete and specific, not abstract ("adds ~200ms latency" not "slightly slower")
+- After the user selects, confirm what's included and excluded based on that choice
+- The selected approach goes into the "Considered Approaches" section of the requirements doc
+- Do NOT design the solution — describe approaches at the level of "what kind of thing we're building", not implementation details
+
+### 6. Acceptance Criteria
 Convert each requirement to Given/When/Then format. Apply the V-Bounce Rule: if a requirement cannot be translated into a testable acceptance criterion, it is not ready — flag it and resolve it.
 
-### 6. Constraints & Assumptions
+### 7. Constraints & Assumptions
 Probe for hidden assumptions using the Assumption Auditor pattern: for every stated requirement, identify one unstated assumption and ask a question that would disprove it.
 
-### 7. Validation
+### 8. Validation
 How will we know it works?
 
 > "How would you verify this feature works correctly? What would you test?"

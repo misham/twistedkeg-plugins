@@ -2,7 +2,7 @@
 description: Interactively gather feature requirements and produce structured requirements documents
 model: opus
 argument-hint: [feature description or topic]
-allowed-tools: Read, Write, Edit, Grep, Glob, Bash(${CLAUDE_PLUGIN_ROOT}/bin/kb:*), Bash(git:*), Bash(${CLAUDE_PLUGIN_ROOT}/scripts/*), Agent, TodoWrite
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash(${CLAUDE_PLUGIN_ROOT}/bin/kb:*), Bash(git:*), Bash(${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(mkdir:*), Agent, TodoWrite, mcp__claude-in-chrome__navigate, mcp__claude-in-chrome__javascript_tool, mcp__claude-in-chrome__read_page, mcp__claude-in-chrome__tabs_create_mcp, mcp__claude-in-chrome__tabs_context_mcp
 ---
 
 # Gather Requirements
@@ -70,11 +70,13 @@ Follow the conversation technique sequence from the skill's `references/conversa
 
 1. **Problem Discovery** — Start with the pain point, not the solution. If the user describes a solution, ask why — find the root problem.
 2. **User & Context** — Who uses this and in what situation?
-3. **Happy Path** — Walk through the ideal interaction from start to finish.
-4. **Scope Boundaries** — Draw explicit lines using Is/Is Not pattern.
-5. **Acceptance Criteria** — Convert each requirement to Given/When/Then format. If a requirement can't be made testable, flag it.
-6. **Constraints & Assumptions** — Probe for hidden assumptions. For every stated requirement, identify one unstated assumption and validate it.
-7. **Validation** — How will we know it works?
+3. **Offer Visual Companion** — If upcoming questions will involve visual decisions (UI layouts, component designs, wireframes), offer the visual companion in its own message. See the `visual-companion` skill for the offering prompt, methodology, and CSS framework. This MUST be its own message — do not combine with a clarifying question. If the user declines, continue text-only. If the topic has no visual component, skip this step. If the user accepts, run context gathering (design token extraction + component inventory) before the next visual question — see `visual-companion` skill's `references/context-gathering.md`.
+4. **Happy Path** — Walk through the ideal interaction from start to finish.
+5. **Scope Boundaries** — Draw explicit lines using Is/Is Not pattern.
+6. **Propose Approaches** — Present 2-3 approaches with concrete trade-offs and your recommendation. Always include a "simplest possible" option. Get user's selection before proceeding. If the visual companion is active, use it to show approaches with mockups when the approaches have visual differences.
+7. **Acceptance Criteria** — Convert each requirement to Given/When/Then format. If a requirement can't be made testable, flag it. Ensure criteria align with the selected approach.
+8. **Constraints & Assumptions** — Probe for hidden assumptions. For every stated requirement, identify one unstated assumption and validate it.
+9. **Validation** — How will we know it works?
 
 Rules during elicitation:
 - **One question at a time** — never ask multiple questions in a single response
@@ -86,9 +88,30 @@ Rules during elicitation:
 - Track progress through document sections using TodoWrite
 - If scope is too large for a single research + plan cycle, propose decomposition into multiple requirements documents
 
-### Step 3: Requirements Document Writing
+### Step 3: Incremental Section Approval
 
-Once all sections are covered and understanding is confirmed:
+Before writing the full document, present requirements in section groups for incremental approval:
+
+**Group 1: Problem & Context**
+- Problem Statement, Motivation & Value, User Context
+- Ask: "Does this capture the problem correctly? Anything to add or change?"
+
+**Group 2: Scope & Approach**
+- Desired Behavior, Scope Boundaries, Considered Approaches (selected + alternatives)
+- Ask: "Does the scope and chosen approach look right?"
+
+**Group 3: Verification**
+- Acceptance Criteria, Validation Approach, Constraints & Assumptions, Key Deliverables
+- Ask: "Do these criteria and deliverables cover what we need?"
+
+Rules:
+- If the user requests changes, revise and re-present that group
+- Only move to the next group after approval
+- After all three groups are approved, proceed to document writing
+
+### Step 4: Requirements Document Writing
+
+Once all section groups are approved:
 
 1. Gather metadata:
    ```bash
@@ -104,9 +127,9 @@ Once all sections are covered and understanding is confirmed:
      - `ENG-XXXX` — ticket number (omit if no ticket)
      - `description` — brief kebab-case description
    - The **Open Questions** section MUST be empty — resolve all questions before writing
-   - All 10 sections must be populated with substantive content
+   - All sections must be populated with substantive content, including Considered Approaches
 
-### Step 4: Automated Review Loop
+### Step 5: Automated Review Loop
 
 After writing the document, dispatch a review agent:
 
@@ -117,14 +140,14 @@ After writing the document, dispatch a review agent:
 3. Maximum 3 automated iterations
 4. If issues remain after 3 rounds, present them to the user for manual resolution
 
-### Step 5: User Review & Iteration
+### Step 6: User Review & Iteration
 
 1. Present the document location to the user
-2. Summarize key decisions and scope boundaries
+2. Summarize key decisions: selected approach, scope boundaries, acceptance criteria
 3. Iterate based on feedback — update the document in place
 4. Continue until the user approves
 
-### Step 6: KB Import
+### Step 7: KB Import
 
 Once the user approves:
 

@@ -55,6 +55,23 @@ last_updated_by: [who updated]
 - [Explicitly not building X]
 - [Future enhancement Y — not now]
 
+## Considered Approaches
+
+### Selected: [Approach Name]
+[2-3 sentences: what this approach does and why it was chosen]
+
+### Alternatives Considered
+
+**[Alternative 1 Name]**
+- How it works: [brief description]
+- Trade-offs: [what you gain vs. give up]
+- Why not chosen: [specific reason]
+
+**[Alternative 2 Name]** *(if applicable)*
+- How it works: [brief description]
+- Trade-offs: [what you gain vs. give up]
+- Why not chosen: [specific reason]
+
 ## Acceptance Criteria
 
 [Measurable, testable conditions for "done". Each should be verifiable.]

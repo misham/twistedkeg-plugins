@@ -25,12 +25,14 @@ Agent tool call:
     | Completeness | Empty sections, TODOs, placeholders, "TBD" |
     | Problem clarity | Is the problem statement specific and measurable? |
     | Scope | Does it have both In Scope and Out of Scope lists? |
+    | Approaches | Does it have a Considered Approaches section with a selected approach and at least one alternative? Are trade-offs concrete and specific? |
     | Acceptance criteria | Are all criteria testable (Given/When/Then)? |
     | Ambiguity | Fuzzy words without measurable definitions ("fast", "easy", "secure") |
     | Assumptions | Are assumptions stated explicitly? |
     | Deliverables | Are concrete outputs listed? |
     | Open questions | This section should be EMPTY for a ready document |
     | Scope size | Can this be implemented in a single research + plan cycle? If not, flag for decomposition |
+    | Internal consistency | Do acceptance criteria align with the selected approach? Do scope boundaries match the chosen direction? |
 
     ## CRITICAL
 
@@ -40,6 +42,9 @@ Agent tool call:
     - Scope that's too large for a single plan cycle
     - Missing Out of Scope section
     - Problem statement that describes a solution rather than a problem
+    - Missing or incomplete Considered Approaches section
+    - Acceptance criteria that don't match the selected approach
+    - Trade-offs that are vague or abstract instead of concrete
 
     ## Output Format
 
