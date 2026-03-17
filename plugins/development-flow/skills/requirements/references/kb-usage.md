@@ -21,7 +21,7 @@ ${CLAUDE_PLUGIN_ROOT}/bin/kb list -t requirements --db kb.db --plain
 1. Write the requirements document to `docs/ai/requirements/`
 2. Import into kb with type `requirements`
 3. Link to any related prior requirements or research documents
-4. Keep the markdown file in `docs/ai/requirements/` — it will be cleaned up separately
+4. Keep the markdown file in `docs/ai/requirements/` — it will be cleaned up by `/compact_plan`
 
 ## Downstream Usage
 

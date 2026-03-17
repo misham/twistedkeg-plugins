@@ -171,4 +171,4 @@ Once the user approves:
 - **Decompose large features** — if scope spans multiple independent subsystems, create separate requirements documents for each
 - **No codebase research** — this command is pre-research; that's what `/research_codebase` is for
 - **No design/architecture** — capture WHAT and WHY, not HOW; the design comes later
-- **Keep the markdown file** in `docs/ai/requirements/` — it will be cleaned up separately
+- **Keep the markdown file** in `docs/ai/requirements/` — it will be cleaned up by `/compact_plan`

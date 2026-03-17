@@ -26,9 +26,11 @@ Compact finished or in-progress implementation plans, import into kb database, a
 
 ## KB Import
 
-Use the safety script: `${CLAUDE_PLUGIN_ROOT}/scripts/kb_import_and_cleanup.sh plan <plan_file> [research_files...]`
+Use the safety script: `${CLAUDE_PLUGIN_ROOT}/scripts/kb_import_and_cleanup.sh plan <plan_file> [research_files...] [requirements_files...]`
 
 The script verifies the import before deleting source files. Never delete files manually.
+
+Requirements files (`docs/ai/requirements/*.md`) are already imported into kb during `/gather_requirements` — they are included in the cleanup script call only for file deletion, not re-import.
 
 ## Linking
 

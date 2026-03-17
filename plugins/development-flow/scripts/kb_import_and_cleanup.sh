@@ -24,7 +24,7 @@ MIN_VERIFY_LENGTH=50
 
 usage() {
   echo "Usage: $0 <type> <file_to_import> [files_to_delete...]" >&2
-  echo "  type            - kb document type (plan, research)" >&2
+  echo "  type            - kb document type (plan, research, requirements)" >&2
   echo "  file_to_import  - markdown file to import" >&2
   echo "  files_to_delete - additional files to remove after import" >&2
   exit 1

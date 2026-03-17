@@ -33,31 +33,35 @@ Update the plan content following these rules:
 
 Write the compacted plan back to the same file path.
 
-## Step 3: Identify Research Documents to Clean Up
+## Step 3: Identify Related Documents to Clean Up
 
-Look inside the plan for referenced research documents:
+Look inside the plan for referenced research and requirements documents:
 
 1. Check the **Research documents** section at the top of the plan
 2. Look for references to `docs/ai/research/*.md` files
-3. Look for kb document IDs (e.g., `kb:42`) — these are already in kb and don't need re-importing, but the corresponding `docs/ai/research/*.md` files can be deleted
+3. Look for references to `docs/ai/requirements/*.md` files
+4. Look for kb document IDs (e.g., `kb:42`) — these are already in kb and don't need re-importing, but the corresponding `docs/ai/research/*.md` and `docs/ai/requirements/*.md` files can be deleted
+5. If no requirements file is referenced in the plan, scan `docs/ai/requirements/` for files whose topic matches the plan's feature name
 
-Collect all `docs/ai/research/*.md` file paths that are referenced by this plan.
+Collect all `docs/ai/research/*.md` and `docs/ai/requirements/*.md` file paths that are referenced by this plan.
 
 ## Step 4: Import and Clean Up
 
 Use the safety script to import the compacted plan and delete source files:
 
 ```bash
-${CLAUDE_PLUGIN_ROOT}/scripts/kb_import_and_cleanup.sh plan <compacted_plan_file> [research_file_1] [research_file_2] ...
+${CLAUDE_PLUGIN_ROOT}/scripts/kb_import_and_cleanup.sh plan <compacted_plan_file> [research_file_1] [research_file_2] [requirements_file_1] ...
 ```
 
 The script will:
 1. Import the compacted plan into kb as type `plan`
 2. Verify the import by retrieving the document and checking content length
-3. Only delete files after successful verification
+3. Only delete files after successful verification (plan, research, and requirements files)
 4. Print the new kb document ID
 
 **IMPORTANT**: If the script fails or reports an error, do NOT manually delete any files. Report the error to the user.
+
+**Note**: Requirements files are already imported into kb during `/gather_requirements`. They are included here only for file cleanup — the kb import of the plan does not re-import them.
 
 ## Step 5: Link Related KB Documents
 
@@ -76,7 +80,7 @@ Plan compacted and imported to kb:
 
 - **KB Document ID**: <id>
 - **Type**: plan
-- **Files deleted**: <list of deleted files>
+- **Files deleted**: <list of deleted plan/research/requirements files>
 - **Linked to**: <list of linked kb document IDs, if any>
 
 The plan is now stored in the kb database. Use `kb get <id>` to retrieve it.
