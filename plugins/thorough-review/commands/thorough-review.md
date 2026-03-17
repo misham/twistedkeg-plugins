@@ -2,7 +2,7 @@
 description: Run a thorough, structured code review with source-first analysis
 model: opus
 argument-hint: "[target: file, directory, --branch, or plan path]"
-allowed-tools: Read, Grep, Glob, Bash, Task
+allowed-tools: Read, Grep, Glob, Bash, Task, Agent
 ---
 
 Run a thorough code review using the thorough-review skill methodology.
@@ -50,3 +50,10 @@ Present the agent's findings to the user. Then offer next steps:
 - "Anything I missed?"
 
 If the user provides feedback, append it to `.claude/thorough-review.local.md` using the Edit tool (or create the file with Write if it doesn't exist).
+
+## Step 6: Offer Gemini Review (Optional)
+
+After presenting findings, also offer:
+- "Want a second opinion from Gemini CLI?"
+
+If the user accepts, follow the `gemini-review` skill methodology to launch an independent Gemini review of the same target. Present Gemini's feedback alongside the thorough-review findings, noting where they agree or diverge.

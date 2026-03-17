@@ -1,7 +1,7 @@
 {
   "name": "thorough-review",
   "description": "Source-first, verification-oriented code review with self-improving feedback loops",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": {
     "name": "Misha Manulis"
   }
