@@ -27,6 +27,7 @@ Interactively elicit feature requirements through one-question-at-a-time convers
 1. Check for `$ARGUMENTS` — proceed if provided, show ready-prompt if empty
 2. Search kb for prior requirements on the topic
 3. Begin elicitation using conversation techniques (see `references/conversation-techniques.md`)
+   - Before accepting any domain noun at face value, check disambiguation rules (see `references/disambiguation-rules.md`)
 4. At each step, explain back understanding and get confirmation
 5. After scope is clear, propose 2-3 approaches with trade-offs and get user's selection
 6. When all sections are covered, gather metadata via `${CLAUDE_PLUGIN_ROOT}/scripts/spec_metadata.sh`
@@ -37,6 +38,7 @@ Interactively elicit feature requirements through one-question-at-a-time convers
 11. Iterate based on user feedback
 12. Import final document into kb with type `requirements` (see `references/kb-usage.md`)
 13. Suggest next step: `/research_codebase @<requirements-file-path>`
+14. Ask for session feedback (see `skills/improve/references/feedback.md`)
 
 ## Key Rules
 
@@ -49,6 +51,7 @@ Interactively elicit feature requirements through one-question-at-a-time convers
 - Decompose into multiple requirements documents if scope is too large for a single plan cycle
 - Use multiple choice when the question has a bounded set of answers
 - Detect and resolve ambiguous words — "fast", "easy", "secure" need measurable definitions
+- Before accepting a domain noun that maps to an API entity, disambiguate per `references/disambiguation-rules.md`
 - This is for features only, not bugs
 
 ## Incremental Presentation

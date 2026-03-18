@@ -34,7 +34,9 @@ Create detailed implementation plans through interactive research, kb-backed con
 9. If design phase: present Architecture Design section for approval before proceeding
 10. Build plan outline, get user feedback on structure
 11. Write plan to `docs/ai/plans/` using template (see `references/plan-template.md`)
+    - When referencing API entities in the plan, verify mapping per disambiguation rules (see `references/disambiguation-rules.md`)
 12. Iterate based on user feedback until approved
+13. After user approves the plan, ask for session feedback (see `skills/improve/references/feedback.md`)
 
 ## Key Rules
 
@@ -46,3 +48,5 @@ Create detailed implementation plans through interactive research, kb-backed con
 - If user corrects a misunderstanding, verify with new research — don't just accept
 - Include specific file paths and line numbers in the plan
 - Write measurable success criteria with TDD per phase
+- Include concrete output examples in every phase that changes user-visible behavior
+- Verify API entity mappings against requirements disambiguation (see `references/disambiguation-rules.md`)

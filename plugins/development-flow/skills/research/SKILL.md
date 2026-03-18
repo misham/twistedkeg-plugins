@@ -31,6 +31,7 @@ Research and document existing codebase by spawning parallel sub-agents, synthes
 7. Synthesize findings into research document (see `references/output-format.md`)
 8. Import into kb (see `references/kb-usage.md`)
 9. Present findings and ask for follow-ups
+10. After follow-ups are complete, ask for session feedback (see `skills/improve/references/feedback.md`)
 
 ## Key Rules
 

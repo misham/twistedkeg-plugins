@@ -28,6 +28,7 @@ Validate completed implementations against requirements, code quality standards,
 3. Run validation layers in order (see `references/validation-layers.md`)
 4. Present validation report with pass/fail per layer and per criterion
 5. If all pass, indicate readiness for `/commit`
+6. Ask for session feedback (see `skills/improve/references/feedback.md`)
 
 ## Key Rules
 

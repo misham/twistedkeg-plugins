@@ -29,6 +29,7 @@ Implement approved technical plans from `docs/ai/plans/` using strict TDD cycles
 5. After each phase: run phase gate protocol (see `references/phase-gates.md`)
 6. After all phases: stop for plan completion gate
 7. After plan completion gate confirmed: suggest running `/validate` before committing
+8. Ask for session feedback (see `skills/improve/references/feedback.md`)
 
 ## Key Rules
 
