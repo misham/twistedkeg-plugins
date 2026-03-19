@@ -7,11 +7,7 @@ allowed-tools: Read, Grep, Glob, Bash, Task, Agent
 
 Run a thorough code review using the thorough-review skill methodology.
 
-## Step 1: Load Local Feedback
-
-Read `.claude/thorough-review.local.md` if it exists. Also read `~/.claude/thorough-review.global.md` if it exists. These contain false-positive rules, calibrations, missed patterns, and project conventions to apply during the review.
-
-## Step 2: Detect Review Target
+## Step 1: Detect Review Target
 
 Determine the review mode from the argument `$ARGUMENTS`:
 
@@ -20,7 +16,7 @@ Determine the review mode from the argument `$ARGUMENTS`:
 - If argument is a file or directory path → **code review** of those specific files
 - If ambiguous → ask the user
 
-## Step 3: Gather Inputs
+## Step 2: Gather Inputs
 
 For **plan review:**
 - Read the plan file
@@ -32,26 +28,42 @@ For **code review:**
 - Run `git diff main...HEAD` for the full diff
 - Read the project's CLAUDE.md for conventions
 
-## Step 4: Dispatch Reviewer Agent
+## Step 3: Dispatch Reviewer Agent
 
 Launch the `thorough-reviewer` agent (via Task tool) with a prompt containing:
 - The review mode (plan or code)
 - All inputs gathered above
-- Local and global feedback rules (false positives, calibrations, conventions)
 - The output format from `${CLAUDE_PLUGIN_ROOT}/skills/thorough-review/references/output-format.md`
 
 If `${CLAUDE_PLUGIN_ROOT}` is not set, locate the plugin directory by searching `~/.claude/plugins/` for a directory containing a `thorough-review` plugin.
 
-## Step 5: Present and Follow Up
+## Step 4: Present and Capture Feedback
 
-Present the agent's findings to the user. Then offer next steps:
+Present the agent's findings to the user. Then offer:
 - "Want me to fix the critical/important issues?"
-- "Any findings I should not have flagged? (saves to local feedback)"
-- "Anything I missed?"
 
-If the user provides feedback, append it to `.claude/thorough-review.local.md` using the Edit tool (or create the file with Write if it doesn't exist).
+After addressing any fixes, capture feedback following `${CLAUDE_PLUGIN_ROOT}/skills/thorough-review/references/feedback.md`:
 
-## Step 6: Offer Gemini Review (Optional)
+Present the capture prompt:
+```
+Any feedback on this review? For example:
+- Findings that should not have been flagged (false positives)
+- Issues I missed that should have been caught
+- Process problems (output format, context triage, etc.)
+- Things that worked well
+
+(Type your feedback or "no" to skip)
+```
+
+If the user provides feedback:
+1. Determine the `category` from the feedback content
+2. Read `~/.claude/thorough-review.global.yaml` (create if it doesn't exist)
+3. Add a new entry with `category`, `description`, `project`, and `added` (today's date)
+4. Write the complete updated file back (never use Edit on the YAML file)
+
+If the user declines, proceed to the next step.
+
+## Step 5: Offer Gemini Review (Optional)
 
 After presenting findings, also offer:
 - "Want a second opinion from Gemini CLI?"

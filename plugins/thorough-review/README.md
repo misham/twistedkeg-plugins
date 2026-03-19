@@ -35,16 +35,17 @@ Promote accumulated feedback patterns into permanent rules:
 /thorough-review-improve
 ```
 
-This command reads feedback from all projects, identifies patterns appearing in 2+ projects, and proposes promotions to the global feedback file or the skill itself.
+This command reads feedback from `~/.claude/thorough-review.global.yaml`, clusters patterns, and proposes promotions into permanent reference files (`confidence-rules.md`, `project-fingerprints.md`).
 
 ## Self-Improvement Loop
 
-After each review, the plugin captures feedback:
-- **False positives** — findings that were wrong get recorded to prevent recurrence
-- **Missed patterns** — things the review should have caught get added as boosters
-- **Calibrations** — severity adjustments for project-specific context
+After each review, the plugin captures feedback into `~/.claude/thorough-review.global.yaml` with four categories:
+- **false_positive** — findings that were wrong get recorded to prevent recurrence
+- **missed_pattern** — things the review should have caught get added as boosters
+- **process_issue** — workflow or output format problems
+- **what_worked** — positive patterns to preserve
 
-Feedback accumulates in `.claude/thorough-review.local.md` (per-project) and `~/.claude/thorough-review.global.md` (cross-project). Use `/thorough-review-improve` to promote stable patterns into permanent rules.
+Use `/thorough-review-improve` to promote stable patterns into permanent reference files.
 
 ## Interaction with Other Tools
 

@@ -20,14 +20,14 @@ Each finding gets a confidence score (0-100). Only findings scoring >= 75 are re
 | Finding is purely stylistic and not covered by CLAUDE.md or project linter | -30 |
 | Fix involves changing a library dependency | -50 |
 | Finding is about code not in the current changeset | -20 |
-| Finding contradicts a pattern in `project_conventions` | -40 |
+| Finding contradicts a documented convention in CLAUDE.md | -40 |
 
 ## Confidence Boosters (add to base score)
 
 | Condition | Boost |
 |-----------|-------|
 | Finding backed by a grep search confirming the call site | +20 |
-| Pattern matches a `missed_pattern` from local.md or global.md | +20 |
+| Pattern matches a known missed pattern | +20 |
 | Finding verified by reading both caller and callee | +15 |
 | Issue reproduces a known bug pattern from the project | +10 |
 
@@ -37,5 +37,3 @@ Each finding gets a confidence score (0-100). Only findings scoring >= 75 are re
 - Style/formatting issues catchable by linters
 - Missing tests for code that wasn't changed
 - Intentional design decisions documented in CLAUDE.md or comments
-- Patterns listed in the project's `thorough-review.local.md` false_positives list
-- Patterns listed in `~/.claude/thorough-review.global.md` false_positives list

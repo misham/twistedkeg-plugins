@@ -54,12 +54,7 @@ If another review agent is already active in the session, defer rather than dupl
 
 ## Post-Review Protocol
 
-After presenting findings, offer three next steps:
-- "Want me to fix the critical/important issues?"
-- "Any findings I should not have flagged? (saves to local feedback)"
-- "Anything I missed?"
-
-Capture user feedback by appending to `.claude/thorough-review.local.md` using the Edit tool. If the file does not exist, create it with the Write tool using the format documented in `${CLAUDE_PLUGIN_ROOT}/skills/thorough-review/references/self-improvement.md`.
+After presenting findings, offer to fix critical/important issues. Then capture feedback following `${CLAUDE_PLUGIN_ROOT}/skills/thorough-review/references/feedback.md` — present the capture prompt and save responses to `~/.claude/thorough-review.global.yaml` using the Read/Write protocol (never Edit the YAML file).
 
 ## Plugin Root Resolution
 
@@ -71,6 +66,8 @@ For detailed output format templates, see `${CLAUDE_PLUGIN_ROOT}/skills/thorough
 
 For confidence scoring rules, penalties, and boosters, see `${CLAUDE_PLUGIN_ROOT}/skills/thorough-review/references/confidence-rules.md`.
 
-For local feedback file format and self-improvement workflow, see `${CLAUDE_PLUGIN_ROOT}/skills/thorough-review/references/self-improvement.md`.
+For the self-improvement workflow, see `${CLAUDE_PLUGIN_ROOT}/skills/thorough-review/references/self-improvement.md`.
+
+For feedback capture format and categories, see `${CLAUDE_PLUGIN_ROOT}/skills/thorough-review/references/feedback.md`.
 
 For project flavor identification before starting reviews, see `${CLAUDE_PLUGIN_ROOT}/skills/thorough-review/references/project-fingerprints.md`.

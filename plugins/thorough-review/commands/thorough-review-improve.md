@@ -1,50 +1,52 @@
 ---
 description: Promote review feedback patterns into permanent skill rules
 model: opus
-allowed-tools: Read, Edit, Write, Grep, Glob
+allowed-tools: Read, Write, Edit, Grep, Glob
 ---
 
-Analyze accumulated review feedback and promote stable patterns into permanent rules.
+Analyze accumulated review feedback and promote stable patterns into permanent reference files.
 
-## Step 1: Gather Feedback
+## Step 1: Read Feedback
 
-Read feedback files from all available sources:
-- `.claude/thorough-review.local.md` in the current project
-- `~/.claude/thorough-review.global.md` if it exists (includes project registry)
+Read `~/.claude/thorough-review.global.yaml`. If the file doesn't exist or has no entries, inform the user:
 
-Use the project registry in global.md to locate other project directories with `thorough-review.local.md` files. If no registry exists, scan `~/.claude/projects/` as a fallback.
+```
+No feedback has been accumulated yet. Feedback is captured at the end of each
+thorough-review session.
 
-After gathering, update the project registry in global.md with the current project path and date.
+Run a few reviews and provide feedback when prompted, then come back to `/thorough-review-improve`.
+```
 
-## Step 2: Identify Promotable Patterns
+## Step 2: Analyze and Group
 
-Analyze the collected feedback for patterns that are stable enough to promote:
-
-**To global feedback file** (`~/.claude/thorough-review.global.md`):
-- False positives that appear in 2+ projects → promote to global false_positives
-- Missed patterns that recur across 2+ projects → promote to global missed_patterns
-- Set initial `confirmation_count` based on occurrences found
-
-**To skill itself** (`${CLAUDE_PLUGIN_ROOT}/skills/thorough-review/references/confidence-rules.md`):
-- Patterns that appear in 3+ projects AND have `confirmation_count >= 5` in global → promote to permanent skill rules
+Follow the analysis methodology from `${CLAUDE_PLUGIN_ROOT}/skills/thorough-review/references/analysis-methodology.md`:
+- Cluster entries by category + overlapping keywords
+- Identify actionable patterns
+- Determine target reference files for each cluster
 
 If `${CLAUDE_PLUGIN_ROOT}` is not set, locate the plugin directory by searching `~/.claude/plugins/` for a directory containing a `thorough-review` plugin.
 
 ## Step 3: Present Proposals
 
-Present each proposed promotion to the user with:
-- The pattern being promoted
-- Where it was found (which projects)
-- Where it would be promoted to (global file or skill)
-- The confirmation count (how many times the pattern was seen/confirmed)
-- The rationale
+For each actionable pattern, follow the proposal format from `${CLAUDE_PLUGIN_ROOT}/skills/thorough-review/references/promotion-criteria.md`:
+- Present the pattern, source entries, target file, and proposed edit
+- Wait for user approval before proceeding
 
 Do not make changes without user approval.
 
 ## Step 4: Execute Approved Changes
 
-For each approved promotion:
-- Use Edit to add entries to the target file (global or skill references)
-- Use Edit to remove promoted entries from the source local files
-- Mark entries with `promoted_at` date, `promoted_from` project list, and `confirmation_count`
-- Update the project registry in global.md
+For each approved proposal:
+- Use Edit to add the new rule to the target reference file, following the file's existing format
+- Read `~/.claude/thorough-review.global.yaml`, remove promoted entries, Write the complete file back (never use Edit on the YAML file)
+
+After all proposals are processed, present a summary:
+```
+## Summary
+
+- Entries processed: [N]
+- Proposals presented: [N]
+- Approved and applied: [N]
+- Declined (kept in feedback): [N]
+- Reference files modified: [list]
+```

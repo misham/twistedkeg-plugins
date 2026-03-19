@@ -1,68 +1,41 @@
 # Self-Improvement Workflow
 
-## Local Feedback File
+## Overview
 
-**Location:** `.claude/thorough-review.local.md` (per-project, gitignored)
+The thorough-review plugin uses a two-stage self-improvement loop:
 
-**Format:**
+1. **Capture** — After each review, user feedback is saved to `~/.claude/thorough-review.global.yaml` as categorized entries
+2. **Promote** — The `/thorough-review-improve` command analyzes accumulated entries, clusters patterns, and proposes promotions into permanent reference files
 
-```yaml
----
-false_positives:
-  - pattern: "Missing nil check on ActiveRecord .find"
-    reason: "Rails raises RecordNotFound by default"
-    added: "2026-03-07"
+Promoted patterns directly improve future review behavior through `confidence-rules.md` (scoring adjustments, false positive definitions) and `project-fingerprints.md` (project-type detection rules).
 
-calibrations:
-  - pattern: "N+1 query"
-    default_severity: "critical"
-    adjusted_severity: "minor"
-    reason: "Only affects admin pages with <100 records in this project"
-    added: "2026-03-07"
+## Data Flow
 
-missed_patterns:
-  - description: "Check for .save vs .save! in service objects — silent failures"
-    added: "2026-03-07"
-
-project_conventions:
-  - "Uses Dry::Monads — check Result wrapping on service return values"
-  - "All background jobs must be idempotent"
----
-
-# Review Notes
-
-Any free-form notes about review patterns specific to this project.
+```
+Review completes → capture prompt → user feedback → ~/.claude/thorough-review.global.yaml
+                                                              ↓
+                                              /thorough-review-improve
+                                                              ↓
+                                              cluster → propose → approve
+                                                              ↓
+                                              Edit target reference file
+                                              Remove entries from YAML
 ```
 
-## Global Feedback File
+## Reference Files
 
-**Location:** `~/.claude/thorough-review.global.md`
+| File | What it defines |
+|---|---|
+| `feedback.md` | YAML format, entry fields, categories, capture prompt, Read/Write protocol |
+| `analysis-methodology.md` | Clustering methodology, target reference file mapping, content-based target selection |
+| `promotion-criteria.md` | When to promote, when not to promote, proposal format, post-promotion cleanup |
 
-**Format:**
+## Promotion Targets
 
-```yaml
----
-project_registry:
-  - path: "/Users/misham/code/xpc-api"
-    last_active: "2026-03-15"
-  - path: "/Users/misham/code/ppt-compass"
-    last_active: "2026-03-10"
+Feedback promotes into existing reference files that govern review behavior:
 
-false_positives:
-  - pattern: "Missing nil check on ActiveRecord .find"
-    reason: "Rails raises RecordNotFound by default"
-    promoted_from: ["xpc-api", "ppt-compass", "phenoml-console"]
-    promoted_at: "2026-03-15"
-    confirmation_count: 7
-
-missed_patterns:
-  - description: "Check for .save vs .save! in service objects"
-    promoted_from: ["xpc-api", "ppt-compass", "phenoml-console"]
-    promoted_at: "2026-03-15"
-    confirmation_count: 5
----
-```
-
-## Feedback Capture Mechanism
-
-After each review, when the user identifies false positives, missed patterns, or severity miscalibrations, use the Edit tool to append entries to `.claude/thorough-review.local.md`. If the file does not exist, create it with the Write tool using the YAML frontmatter format above. Each entry includes a `pattern` or `description`, a `reason`, and an `added` date.
+| Target File | What gets promoted there |
+|---|---|
+| `confidence-rules.md` | False positive definitions, confidence boosters, confidence penalties |
+| `project-fingerprints.md` | Project-type detection rules, fingerprint categories |
+| `output-format.md` | Structural template changes (rare — only for output format issues) |
