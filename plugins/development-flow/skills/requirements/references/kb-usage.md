@@ -1,29 +1,33 @@
 # KB Usage for Requirements
 
-## Commands
+See the consolidated [KB skill](../../kb/SKILL.md) for full CLI reference, import workflows, and git merge support.
+
+## Requirements-Specific Patterns
+
+### Searching for Existing Requirements
 
 ```bash
-# Search for existing requirements
 ${CLAUDE_PLUGIN_ROOT}/bin/kb search "<query>" -t requirements --db kb.db --plain
+```
 
-# Import a requirements document
-${CLAUDE_PLUGIN_ROOT}/bin/kb import docs/ai/requirements/<filename>.md -t requirements --db kb.db --plain
+### Listing Requirements Documents
 
-# Link requirements to related research
-${CLAUDE_PLUGIN_ROOT}/bin/kb link <requirements_id> <research_id> -r related --db kb.db --plain
-
-# List all requirements documents
+```bash
 ${CLAUDE_PLUGIN_ROOT}/bin/kb list -t requirements --db kb.db --plain
 ```
 
-## Import Flow
+### Importing Requirements Documents
 
-1. Write the requirements document to `docs/ai/requirements/`
-2. Import into kb with type `requirements`
-3. Link to any related prior requirements or research documents
-4. Keep the markdown file in `docs/ai/requirements/` — it will be cleaned up by `/compact_plan`
+```bash
+${CLAUDE_PLUGIN_ROOT}/bin/kb import docs/ai/requirements/<filename>.md -t requirements --db kb.db --plain
+${CLAUDE_PLUGIN_ROOT}/bin/kb link <requirements_id> <research_id> -r related --db kb.db --plain
+```
 
-## Downstream Usage
+After import, keep the markdown file in `docs/ai/requirements/` — it will be cleaned up by `/compact_plan`.
+
+For import with cleanup, see [Import and Cleanup](../../kb/references/import-and-cleanup.md).
+
+### Downstream Usage
 
 - `/research_codebase` searches for `requirements` type to understand what to research
 - `/create_plan` searches for `requirements` type to understand what to plan for

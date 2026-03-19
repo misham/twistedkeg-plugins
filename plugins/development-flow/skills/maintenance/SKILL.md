@@ -13,41 +13,12 @@ version: 1.0.0
 
 Compact finished or in-progress implementation plans, import into kb database, and clean up source markdown files.
 
-## Compaction Rules
+## Compaction
 
-1. **Replace inline code examples with file references** — use `file:line` references instead of duplicating code
-2. **Update implementation notes** — reflect what was actually done vs. planned
-3. **Mark completed phases** — check off success criteria that were met
-4. **Remove redundant detail** — collapse verbose sections into concise summaries
-5. **Preserve the structure** — keep plan template sections
-6. **Update frontmatter** — add `status: complete` and `compacted: YYYY-MM-DD`
-7. **Preserve key decisions and discoveries** — compacting removes verbosity, not information
-8. **Keep file:line references** — these are the most valuable part
+Apply compaction rules to reduce verbosity while preserving information. See `references/compaction-rules.md` for the full ruleset covering what to compact, what to preserve, frontmatter updates, and quality checks.
 
 ## KB Import
 
-Use the safety script: `${CLAUDE_PLUGIN_ROOT}/scripts/kb_import_and_cleanup.sh plan <plan_file> [research_files...] [requirements_files...]`
+Use the safety script and link related documents after import. See `references/kb-import-workflow.md` for the full import workflow, requirements file handling, linking rules, and report format.
 
-The script verifies the import before deleting source files. Never delete files manually.
-
-Requirements files (`docs/ai/requirements/*.md`) are already imported into kb during `/gather_requirements` — they are included in the cleanup script call only for file deletion, not re-import.
-
-## Linking
-
-If the plan references existing kb document IDs, link them:
-```bash
-${CLAUDE_PLUGIN_ROOT}/bin/kb link <new_plan_id> <research_id> -r related --db kb.db --plain
-```
-
-## Report Format
-
-```
-Plan compacted and imported to kb:
-
-- **KB Document ID**: <id>
-- **Type**: plan
-- **Files deleted**: <list>
-- **Linked to**: <linked kb IDs>
-
-Use `kb get <id>` to retrieve it.
-```
+For general kb CLI reference, see the [KB skill](../kb/SKILL.md).

@@ -40,6 +40,20 @@ Interactively elicit feature requirements through one-question-at-a-time convers
 13. Suggest next step: `/research_codebase @<requirements-file-path>`
 14. Ask for session feedback (see `skills/improve/references/feedback.md`)
 
+## Visual Companion
+
+When requirements involve UI or visual design decisions (layouts, navigation, component structure), consider offering the visual companion to show mockups alongside elicitation. See the [visual-companion skill](../visual-companion/SKILL.md).
+
+**When to offer:**
+- The feature involves new UI surfaces, layouts, or navigation changes
+- The user is describing visual behavior that's easier to show than describe
+- There are 2+ UI layout options to compare
+
+**When NOT to offer:**
+- Requirements are purely backend, API, or data-model focused
+- The visual aspects are straightforward and don't need mockups
+- The user has already declined visual companion in this session
+
 ## Key Rules
 
 - Never ask multiple questions in a single response

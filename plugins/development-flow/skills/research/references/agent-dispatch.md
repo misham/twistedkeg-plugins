@@ -9,7 +9,7 @@
 | codebase-pattern-finder | Find existing patterns and examples | Grep, Glob, Read, LS | Find similar implementations to model after |
 | research-locator | Find docs in docs/ai/ and kb | Grep, Glob, LS, Bash | Find prior research and plans |
 | research-analyzer | Extract insights from research docs | Read, Grep, Glob, LS, Bash | Analyze kb documents or research files |
-| web-search-researcher | Research on the web via Gemini CLI | Bash, WebFetch, TodoWrite, Read, Grep, Glob, LS | Only when user explicitly asks for web research |
+| web-search-researcher | Research on the web via Gemini CLI | Bash, WebFetch, TodoWrite, Read, Grep, Glob, LS | When external API/service docs needed, unfamiliar library features, current best practices required, kb has no prior research on the topic, or user explicitly asks |
 
 ## Dispatch Strategy
 

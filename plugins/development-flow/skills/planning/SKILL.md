@@ -25,7 +25,7 @@ Create detailed implementation plans through interactive research, kb-backed con
 
 1. Read all mentioned files FULLY (main context, before spawning agents)
 2. Search kb for prior research and plans (see `references/research-integration.md`)
-3. Spawn parallel research agents (codebase-locator, codebase-analyzer, codebase-pattern-finder)
+3. Spawn parallel research agents based on task needs (see `references/agent-selection.md` for dispatch criteria)
 4. Spawn background research-analyzer agents for relevant kb documents
 5. While agents run: assess complexity from loaded input, propose design phase if 2+ signals detected, user confirms
 6. Read newly identified files from research results
