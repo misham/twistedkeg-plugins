@@ -18,7 +18,13 @@ You are tasked with creating git commits for the changes made during this sessio
    - Identify which files belong together
    - Draft clear, descriptive commit messages
    - Use imperative mood in commit messages
-   - Focus on why the changes were made, not just what
+   - **Commit message content rules:**
+     - Lead with WHAT changed at a high level (the user-visible or system-visible effect)
+     - Follow with WHY the change was made (motivation, problem solved, goal achieved)
+     - Do NOT describe HOW the change was implemented (no file lists, no method names, no technical steps)
+     - The reader should understand the purpose without reading the diff
+     - Bad: "Add validation function to user-input.ts and update handler to call it"
+     - Good: "Validate user input before processing to prevent malformed data errors"
 
 3. **Present your plan to the user:**
    - List the files you plan to add for each commit

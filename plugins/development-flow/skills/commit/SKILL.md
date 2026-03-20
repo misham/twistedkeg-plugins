@@ -32,6 +32,12 @@ Validation (`/validate`) should have been run before committing. If the user has
 - Write commit messages as if the user wrote them
 - Use `git add` with specific files — never use `-A` or `.`
 - Use imperative mood in commit messages
-- Focus on why changes were made, not just what
+- **Commit message content rules:**
+  - Lead with WHAT changed at a high level (the user-visible or system-visible effect)
+  - Follow with WHY the change was made (motivation, problem solved, goal achieved)
+  - Do NOT describe HOW the change was implemented (no file lists, no method names, no technical steps)
+  - The reader should understand the purpose without reading the diff
+  - Bad: "Add validation function to user-input.ts and update handler to call it"
+  - Good: "Validate user input before processing to prevent malformed data errors"
 - Group related changes together
 - Keep commits focused and atomic when possible
