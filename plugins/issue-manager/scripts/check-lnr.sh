@@ -10,5 +10,5 @@ fi
 
 # Check auth status
 if ! lnr auth status >/dev/null 2>&1; then
-  echo "lnr: Not authenticated. Run /issue-manager:login to authenticate with Linear." >&2
+  echo "lnr: Not authenticated. Run /issue-manager:linear-login to authenticate with Linear." >&2
 fi

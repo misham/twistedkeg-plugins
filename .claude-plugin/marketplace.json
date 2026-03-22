@@ -17,7 +17,7 @@
     {
       "name": "issue-manager",
       "source": "./plugins/issue-manager",
-      "description": "Issue tracking integration via CLI tools (Linear via lnr, GitHub Issues planned)"
+      "description": "Issue tracking integration via CLI tools (Linear via lnr, Sentry via sentry-cli, GitHub Issues planned)"
     }
   ]
 }

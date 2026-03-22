@@ -9,7 +9,8 @@ description: >
   "file a bug", "move issue to done", or any interaction with Linear including
   issue tracking, project management, sprint planning, and initiative tracking.
   Provides CLI-based Linear integration via the lnr tool with --plain output for
-  LLM consumption. Do NOT use for GitHub Issues (planned, not yet implemented).
+  LLM consumption. Do NOT use for GitHub Issues (planned, not yet implemented)
+  or Sentry error tracking — those use the issue-manager-sentry skill.
 version: 0.1.0
 ---
 
@@ -19,7 +20,7 @@ Use the `lnr` CLI for fast, focused access to Linear issue tracking, project man
 
 **All commands require `--plain`** for machine-readable output suitable for LLM consumption.
 
-**Authentication:** If any command returns an auth error, instruct the user to run `/issue-manager:login` to re-authenticate.
+**Authentication:** If any command returns an auth error, instruct the user to run `/issue-manager:linear-login` to re-authenticate.
 
 ## Quick Reference
 
@@ -89,7 +90,7 @@ To override the default for a single command, pass `--team <name>`.
 
 ## Error Handling
 
-- **Auth errors:** Suggest `/issue-manager:login` for re-authentication
+- **Auth errors:** Suggest `/issue-manager:linear-login` for re-authentication
 - **Team not set:** Run `lnr team list --plain` to show available teams, then `lnr team set <name>`
 - **Unknown states:** Run `lnr state list --plain` to show valid workflow states for the team
 
