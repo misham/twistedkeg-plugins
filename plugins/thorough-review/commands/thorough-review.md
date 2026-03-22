@@ -32,14 +32,14 @@ For **code review:**
 
 For **code review** mode only, check if prior validation reports exist:
 
-1. Look for the development-flow plugin's `kb` binary: search `~/.claude/plugins/cache/*/development-flow/*/bin/kb` and use the highest version number found. If not found, skip this step silently.
+1. Check if `kb` is available in PATH: `command -v kb`. If not found, skip this step silently.
 2. If `kb` is available, search for validation reports matching the current branch:
    ```bash
-   <kb_path> search "<branch name>" -t validation --db kb.db --plain
+   kb search "<branch name>" -t validation --db kb.db --plain
    ```
 3. If results found, retrieve the most recent report:
    ```bash
-   <kb_path> get <id> --db kb.db --plain
+   kb get <id> --db kb.db --plain
    ```
 4. Include a summary in the agent dispatch prompt (Step 3):
 

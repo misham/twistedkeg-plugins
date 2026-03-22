@@ -1,6 +1,6 @@
 # Issue Commands Reference
 
-In all examples below, `lnr` refers to `${CLAUDE_PLUGIN_ROOT}/bin/lnr`. All commands require `--plain` for LLM output.
+All commands require `--plain` for LLM output.
 
 ## Issues
 

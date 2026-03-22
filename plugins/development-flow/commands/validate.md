@@ -12,7 +12,7 @@ You are running post-implementation validation for a completed plan. This comman
 
 1. **Resolve the plan path** from `$ARGUMENTS`:
    - If a file path: read it directly
-   - If a kb document ID: retrieve with `${CLAUDE_PLUGIN_ROOT}/bin/kb get <id> --db kb.db --plain`
+   - If a kb document ID: retrieve with `kb get <id> --db kb.db --plain`
    - If empty: look for the most recent `.md` file in `docs/ai/plans/`
    - If no plan found: ask the user
 
@@ -25,11 +25,11 @@ You are running post-implementation validation for a completed plan. This comman
    - If no requirements doc found, use the plan's `## Desired End State` and `## Final Manual Verification`
 
 4. **Discover prior validation reports** for the same plan:
-   - If the plan was resolved from a kb ID, use `${CLAUDE_PLUGIN_ROOT}/bin/kb links <plan_kb_id> --db kb.db --plain` and filter results for type `validation`
-   - Search kb by plan title as a fallback: `${CLAUDE_PLUGIN_ROOT}/bin/kb search "<plan title>" -t validation --db kb.db --plain`
+   - If the plan was resolved from a kb ID, use `kb links <plan_kb_id> --db kb.db --plain` and filter results for type `validation`
+   - Search kb by plan title as a fallback: `kb search "<plan title>" -t validation --db kb.db --plain`
    - Scan `docs/ai/validations/` for files with matching `plan_path` or `plan_kb_id` in frontmatter (most reliable — catches reports not yet linked or with title mismatches)
    - Deduplicate results across all three discovery methods
-   - If prior reports found, retrieve the most recent one: use `${CLAUDE_PLUGIN_ROOT}/bin/kb get <id> --db kb.db --plain` if a kb ID is available, or read the file directly if discovered only via filesystem scan. Extract which layers had issues, which acceptance criteria failed, and the overall result
+   - If prior reports found, retrieve the most recent one: use `kb get <id> --db kb.db --plain` if a kb ID is available, or read the file directly if discovered only via filesystem scan. Extract which layers had issues, which acceptance criteria failed, and the overall result
    - If no prior reports exist, skip silently (no error, no message)
 
 5. **Present what was discovered**:
@@ -191,12 +191,12 @@ After presenting the final report, persist the validation results:
 
 4. **Import to kb**:
    ```bash
-   ${CLAUDE_PLUGIN_ROOT}/bin/kb import docs/ai/validations/<filename>.md -t validation --db kb.db --plain
+   kb import docs/ai/validations/<filename>.md -t validation --db kb.db --plain
    ```
 
 5. **Link to the plan** if the plan was resolved from a kb ID:
    ```bash
-   ${CLAUDE_PLUGIN_ROOT}/bin/kb link <report_id> <plan_kb_id> -r related --db kb.db --plain
+   kb link <report_id> <plan_kb_id> -r related --db kb.db --plain
    ```
 
 6. **Present the report location**:

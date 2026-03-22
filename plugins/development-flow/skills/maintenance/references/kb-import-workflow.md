@@ -23,7 +23,7 @@ Validation report files (`docs/ai/validations/*.md`) are already imported into k
 After import, link the new plan to related kb documents:
 
 ```bash
-${CLAUDE_PLUGIN_ROOT}/bin/kb link <new_plan_id> <research_id> -r related --db kb.db --plain
+kb link <new_plan_id> <research_id> -r related --db kb.db --plain
 ```
 
 Link to:

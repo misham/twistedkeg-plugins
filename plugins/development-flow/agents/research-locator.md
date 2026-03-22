@@ -12,9 +12,9 @@ You are a specialist at finding documents in the docs/ai/ directory and the kb d
 1. **Search docs/ai/research/ directory structure**
 
 2. **Search the kb database for indexed documents**
-   - Use `${CLAUDE_PLUGIN_ROOT}/bin/kb search "<query>" --db kb.db --plain` to find relevant indexed research and plans
-   - Use `${CLAUDE_PLUGIN_ROOT}/bin/kb search "<query>" -t research --db kb.db --plain` for research-only results
-   - Use `${CLAUDE_PLUGIN_ROOT}/bin/kb search "<query>" -t plan --db kb.db --plain` for plan-only results
+   - Use `kb search "<query>" --db kb.db --plain` to find relevant indexed research and plans
+   - Use `kb search "<query>" -t research --db kb.db --plain` for research-only results
+   - Use `kb search "<query>" -t plan --db kb.db --plain` for plan-only results
 
 3. **Categorize findings by type**
    - Tickets (usually mentioned in the research or plan)
@@ -34,7 +34,7 @@ First, think deeply about the search approach - consider which directories to pr
 ### KB Database Search
 Search the kb database for indexed documents (can run in parallel with filesystem searches):
 ```bash
-${CLAUDE_PLUGIN_ROOT}/bin/kb search "<relevant terms>" --db kb.db --plain
+kb search "<relevant terms>" --db kb.db --plain
 ```
 This returns documents with IDs, titles, and relevance scores. Include the kb document ID in your results so callers can retrieve full content with `kb get`.
 

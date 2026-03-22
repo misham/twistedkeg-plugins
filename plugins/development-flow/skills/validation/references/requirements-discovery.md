@@ -4,7 +4,7 @@
 
 1. Read the plan file specified by the user
 2. Look in the `## Research documents` section for kb document IDs
-3. For each kb ID, retrieve the document: `${CLAUDE_PLUGIN_ROOT}/bin/kb get <id> --db kb.db --plain`
+3. For each kb ID, retrieve the document: `kb get <id> --db kb.db --plain`
 4. Identify which document has type `requirements` (or contains `## Acceptance Criteria`)
 5. If no requirements doc is found, check for a `docs/ai/requirements/` file referenced in the plan
 

@@ -14,7 +14,7 @@ version: 1.0.0
 
 # KB Database Operations
 
-The `kb` CLI provides persistent cross-session storage for research, plans, and requirements documents. The binary is at `${CLAUDE_PLUGIN_ROOT}/bin/kb` and is auto-installed and auto-updated by the SessionStart hook (see [Installation](references/installation.md)).
+The `kb` CLI provides persistent cross-session storage for research, plans, and requirements documents. The `kb` binary must be installed in your system PATH (see [Installation](references/installation.md)). The SessionStart hook verifies it is available.
 
 **All commands require `--db kb.db --plain`** (database relative to project root, machine-readable output).
 
@@ -32,13 +32,14 @@ The `kb` CLI provides persistent cross-session storage for research, plans, and 
 | Show links | `kb links <id> --db kb.db --plain` |
 | Git merge setup | `kb setup-git --db kb.db` |
 
-All commands use `${CLAUDE_PLUGIN_ROOT}/bin/kb` as the binary path.
+All commands use `kb` from PATH.
 
 ## Document Types
 
 - **research** — codebase research findings from `/research_codebase`
 - **plan** — implementation plans from `/create_plan`
 - **requirements** — feature requirements from `/gather_requirements`
+- **validation** — validation reports from `/validate`
 
 ## Detailed References
 

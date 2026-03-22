@@ -28,7 +28,6 @@ plugins/
   development-flow/               # Research-driven development workflow plugin
     .claude-plugin/plugin.json
     agents/                       # 6 specialized sub-agents for parallel research
-    bin/                          # kb binary (auto-downloaded by SessionStart hook)
     commands/
       gather_requirements.md
       research_codebase.md
@@ -36,9 +35,9 @@ plugins/
       implement_plan.md
       compact_plan.md
       commit.md
-    hooks/hooks.json              # Command hook: auto-downloads kb binary at session start
+    hooks/hooks.json              # SessionStart hook: verifies kb is in PATH
     scripts/
-      install-kb.sh               # Downloads/updates kb binary from GitHub releases
+      check-kb.sh               # Verifies kb binary is available in PATH
       kb_import_and_cleanup.sh
       spec_metadata.sh
     skills/
@@ -66,7 +65,7 @@ plugins/
 ## Key Architecture Decisions (development-flow)
 
 - **Research-first workflow:** Every feature starts with `/gather_requirements`, then `/research_codebase`, then `/create_plan`, then `/implement_plan`. Commands enforce this sequence.
-- **KB-backed context:** Research and plans are stored in a `kb` database for persistent cross-session context. The kb binary is auto-downloaded via a SessionStart hook.
+- **KB-backed context:** Research and plans are stored in a `kb` database for persistent cross-session context. The `kb` binary must be installed in the system PATH; a SessionStart hook verifies availability.
 - **Parallel sub-agent dispatch:** Research commands spawn specialized agents (locator, analyzer, pattern-finder) in parallel. Agents are documentarians — they describe what exists without critiquing.
 - **Skills extract methodology from commands:** Each command references a corresponding skill for its methodology. Skills have reference files for detailed rules (TDD cycle, phase gates, plan template, etc.).
 - **Strict TDD implementation:** `/implement_plan` enforces red/green/refactor cycles with phase gate verification before proceeding.
@@ -80,6 +79,10 @@ plugins/
 - Skill frontmatter supports: `name`, `description`, `version`.
 - The `description` field in agents and skills controls when Claude triggers them — word choice matters for activation accuracy. Keep trigger phrases specific ("thorough review", "deep code review") and explicitly exclude generic phrases.
 - Reference files under `skills/thorough-review/references/` are loaded by the command/agent at runtime — they are not standalone skills.
+
+## Versioning
+
+Before committing changes to a plugin, bump its version in `plugins/<name>/.claude-plugin/plugin.json`. Use semver: patch for fixes/docs, minor for new features or behavioral changes, major for breaking changes. If multiple plugins were changed, bump each one.
 
 ## Adding a New Plugin
 

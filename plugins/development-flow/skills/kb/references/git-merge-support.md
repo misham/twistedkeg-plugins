@@ -5,10 +5,10 @@ The `kb setup-git` command configures git to handle `kb.db` merge conflicts auto
 ## Setup
 
 ```bash
-${CLAUDE_PLUGIN_ROOT}/bin/kb setup-git --db kb.db
+kb setup-git --db kb.db
 ```
 
-This is run automatically by the SessionStart hook (`scripts/install-kb.sh`). It configures:
+This is run automatically by the SessionStart hook (`scripts/check-kb.sh`). It configures:
 
 - A custom git merge driver in `.git/config`
 - A merge tool for manual resolution

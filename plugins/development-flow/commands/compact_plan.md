@@ -2,7 +2,7 @@
 description: Compact a finished plan, import to kb, and clean up source files
 model: opus
 argument-hint: [path to plan file]
-allowed-tools: Read, Write, Edit, Grep, Glob, Bash(${CLAUDE_PLUGIN_ROOT}/bin/kb:*), Bash(git:*), Bash(${CLAUDE_PLUGIN_ROOT}/scripts/*), Agent
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash(kb:*), Bash(git:*), Bash(${CLAUDE_PLUGIN_ROOT}/scripts/*), Agent
 ---
 
 # Compact Plan to KB
@@ -43,7 +43,7 @@ Look inside the plan for referenced research and requirements documents:
 4. Look for kb document IDs (e.g., `kb:42`) — these are already in kb and don't need re-importing, but the corresponding `docs/ai/research/*.md` and `docs/ai/requirements/*.md` files can be deleted
 5. If no requirements file is referenced in the plan, scan `docs/ai/requirements/` for files whose topic matches the plan's feature name
 6. Look for references to `docs/ai/validations/*.md` files
-7. Search kb for validation reports linked to this plan: `${CLAUDE_PLUGIN_ROOT}/bin/kb search "<plan title>" -t validation --db kb.db --plain`
+7. Search kb for validation reports linked to this plan: `kb search "<plan title>" -t validation --db kb.db --plain`
 8. For any validation reports found in kb, check if corresponding files exist in `docs/ai/validations/`
 
 Collect all `docs/ai/research/*.md`, `docs/ai/requirements/*.md`, and `docs/ai/validations/*.md` file paths that are referenced by or associated with this plan.
@@ -71,7 +71,7 @@ The script will:
 If the plan referenced existing kb document IDs (from research documents already in kb):
 
 ```bash
-${CLAUDE_PLUGIN_ROOT}/bin/kb link <new_plan_id> <research_id> -r related --db kb.db --plain
+kb link <new_plan_id> <research_id> -r related --db kb.db --plain
 ```
 
 ## Step 6: Report

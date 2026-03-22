@@ -7,14 +7,14 @@ See the consolidated [KB skill](../../kb/SKILL.md) for full CLI reference, impor
 ### Searching for Prior Research
 
 ```bash
-${CLAUDE_PLUGIN_ROOT}/bin/kb search "<query>" -t research --db kb.db --plain
+kb search "<query>" -t research --db kb.db --plain
 ```
 
 ### Importing Research Documents
 
 ```bash
-${CLAUDE_PLUGIN_ROOT}/bin/kb import docs/ai/research/<filename>.md -t research --db kb.db --plain
-${CLAUDE_PLUGIN_ROOT}/bin/kb link <new_id> <related_id> -r related --db kb.db --plain
+kb import docs/ai/research/<filename>.md -t research --db kb.db --plain
+kb link <new_id> <related_id> -r related --db kb.db --plain
 ```
 
 ### Import with Cleanup

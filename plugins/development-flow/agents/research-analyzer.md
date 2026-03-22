@@ -30,7 +30,7 @@ You are a specialist at extracting HIGH-VALUE insights from research documents. 
 ## Analysis Strategy
 
 ### Step 1: Read with Purpose
-- If given a **kb document ID** (e.g., `kb:42`), fetch it with: `${CLAUDE_PLUGIN_ROOT}/bin/kb get <id> --db kb.db --plain`
+- If given a **kb document ID** (e.g., `kb:42`), fetch it with: `kb get <id> --db kb.db --plain`
 - If given a **file path**, read the entire document with the Read tool
 - Identify the document's main goal
 - Note the date and context

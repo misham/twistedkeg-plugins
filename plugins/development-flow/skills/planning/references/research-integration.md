@@ -5,7 +5,7 @@
 Before creating a plan, search kb for prior research and plans:
 
 ```bash
-${CLAUDE_PLUGIN_ROOT}/bin/kb search "<relevant terms>" --db kb.db --plain
+kb search "<relevant terms>" --db kb.db --plain
 ```
 
 ### What to search for:
@@ -25,7 +25,7 @@ ${CLAUDE_PLUGIN_ROOT}/bin/kb search "<relevant terms>" --db kb.db --plain
 The `/create_plan` command accepts:
 - **File paths** — read them FULLY
 - **Ticket references** — read ticket URLs directly
-- **kb document IDs** — retrieve with `${CLAUDE_PLUGIN_ROOT}/bin/kb get <id> --db kb.db --plain`
+- **kb document IDs** — retrieve with `kb get <id> --db kb.db --plain`
 
 ## Plan Storage
 

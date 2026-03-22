@@ -42,20 +42,20 @@ KB_DOC_ID=<id>
 ### Research Import
 
 ```bash
-${CLAUDE_PLUGIN_ROOT}/bin/kb import docs/ai/research/<filename>.md -t research --db kb.db --plain
-${CLAUDE_PLUGIN_ROOT}/bin/kb link <new_id> <related_id> -r related --db kb.db --plain
+kb import docs/ai/research/<filename>.md -t research --db kb.db --plain
+kb link <new_id> <related_id> -r related --db kb.db --plain
 ```
 
 ### Requirements Import
 
 ```bash
-${CLAUDE_PLUGIN_ROOT}/bin/kb import docs/ai/requirements/<filename>.md -t requirements --db kb.db --plain
-${CLAUDE_PLUGIN_ROOT}/bin/kb link <new_id> <related_id> -r related --db kb.db --plain
+kb import docs/ai/requirements/<filename>.md -t requirements --db kb.db --plain
+kb link <new_id> <related_id> -r related --db kb.db --plain
 ```
 
 ### Plan Compaction (with cleanup)
 
 ```bash
 ${CLAUDE_PLUGIN_ROOT}/scripts/kb_import_and_cleanup.sh plan <plan_file> [research_files...] [requirements_files...]
-${CLAUDE_PLUGIN_ROOT}/bin/kb link <new_plan_id> <research_id> -r related --db kb.db --plain
+kb link <new_plan_id> <research_id> -r related --db kb.db --plain
 ```

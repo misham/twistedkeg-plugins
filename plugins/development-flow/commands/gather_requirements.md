@@ -2,7 +2,7 @@
 description: Interactively gather feature requirements and produce structured requirements documents
 model: opus
 argument-hint: [feature description or topic]
-allowed-tools: Read, Write, Edit, Grep, Glob, Bash(${CLAUDE_PLUGIN_ROOT}/bin/kb:*), Bash(git:*), Bash(${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(mkdir:*), Agent, TodoWrite, mcp__claude-in-chrome__navigate, mcp__claude-in-chrome__javascript_tool, mcp__claude-in-chrome__read_page, mcp__claude-in-chrome__tabs_create_mcp, mcp__claude-in-chrome__tabs_context_mcp
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash(kb:*), Bash(git:*), Bash(${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(mkdir:*), Agent, TodoWrite, mcp__claude-in-chrome__navigate, mcp__claude-in-chrome__javascript_tool, mcp__claude-in-chrome__read_page, mcp__claude-in-chrome__tabs_create_mcp, mcp__claude-in-chrome__tabs_context_mcp
 ---
 
 # Gather Requirements
@@ -21,15 +21,15 @@ If `$ARGUMENTS` is provided, use it as starting context for elicitation and proc
 
 ## KB Tool
 
-The `kb` CLI is available at `${CLAUDE_PLUGIN_ROOT}/bin/kb`. The database path should always be specified with `--db kb.db` relative to the project root. Use `--plain` for machine-readable output.
+The `kb` CLI must be installed in your system PATH. The database path should always be specified with `--db kb.db` relative to the project root. Use `--plain` for machine-readable output.
 
 Key commands:
-- `${CLAUDE_PLUGIN_ROOT}/bin/kb search <query> --db kb.db --plain` — Search existing knowledge
-- `${CLAUDE_PLUGIN_ROOT}/bin/kb search <query> -t requirements --db kb.db --plain` — Search requirements documents
-- `${CLAUDE_PLUGIN_ROOT}/bin/kb search <query> -t research --db kb.db --plain` — Search research documents
-- `${CLAUDE_PLUGIN_ROOT}/bin/kb list -t requirements --db kb.db --plain` — List requirements documents
-- `${CLAUDE_PLUGIN_ROOT}/bin/kb import <file> -t requirements --db kb.db --plain` — Import a requirements document
-- `${CLAUDE_PLUGIN_ROOT}/bin/kb link <id1> <id2> -r related --db kb.db --plain` — Link two documents
+- `kb search <query> --db kb.db --plain` — Search existing knowledge
+- `kb search <query> -t requirements --db kb.db --plain` — Search requirements documents
+- `kb search <query> -t research --db kb.db --plain` — Search research documents
+- `kb list -t requirements --db kb.db --plain` — List requirements documents
+- `kb import <file> -t requirements --db kb.db --plain` — Import a requirements document
+- `kb link <id1> <id2> -r related --db kb.db --plain` — Link two documents
 
 ## Initial Setup
 
@@ -56,11 +56,11 @@ Before beginning elicitation:
 
 1. Search kb for existing requirements on the topic:
    ```bash
-   ${CLAUDE_PLUGIN_ROOT}/bin/kb search "<topic>" -t requirements --db kb.db --plain
+   kb search "<topic>" -t requirements --db kb.db --plain
    ```
 2. Search for related research:
    ```bash
-   ${CLAUDE_PLUGIN_ROOT}/bin/kb search "<topic>" -t research --db kb.db --plain
+   kb search "<topic>" -t research --db kb.db --plain
    ```
 3. If related documents are found, note them and use as context — don't re-ask questions that are already answered in prior documents.
 
@@ -153,11 +153,11 @@ Once the user approves:
 
 1. Import into kb:
    ```bash
-   ${CLAUDE_PLUGIN_ROOT}/bin/kb import docs/ai/requirements/<filename>.md -t requirements --db kb.db --plain
+   kb import docs/ai/requirements/<filename>.md -t requirements --db kb.db --plain
    ```
 2. Link to related kb documents if any were found in Step 1:
    ```bash
-   ${CLAUDE_PLUGIN_ROOT}/bin/kb link <new_id> <related_id> -r related --db kb.db --plain
+   kb link <new_id> <related_id> -r related --db kb.db --plain
    ```
 3. Suggest next step:
    ```

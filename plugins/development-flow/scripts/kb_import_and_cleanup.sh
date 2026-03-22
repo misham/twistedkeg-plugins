@@ -18,7 +18,7 @@ set -euo pipefail
 #   4. Only then delete the source files
 #   5. Print the kb document ID on success
 
-KB="${CLAUDE_PLUGIN_ROOT}/bin/kb"
+KB="kb"
 DB="kb.db"
 MIN_VERIFY_LENGTH=50
 

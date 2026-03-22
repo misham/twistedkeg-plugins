@@ -80,11 +80,14 @@ Provides a structured development workflow: research existing code, create imple
 
 | Command | Description |
 |---------|-------------|
+| `/gather_requirements` | Interactively gather feature requirements |
 | `/research_codebase` | Research codebase using parallel sub-agents, store findings in kb |
 | `/create_plan` | Create implementation plans through interactive research and iteration |
 | `/implement_plan` | Execute plans with strict TDD cycles and phase gates |
+| `/validate` | Post-implementation validation against plan and requirements |
 | `/compact_plan` | Compact finished plans, import to kb, clean up source files |
 | `/commit` | Create git commits with user approval, no Claude attribution |
+| `/improve` | Promote accumulated feedback patterns into permanent skill rules |
 
 #### Agents
 
@@ -99,4 +102,4 @@ Six specialized sub-agents for parallel research:
 
 #### KB Integration
 
-Uses the [kb](https://github.com/misham/kb) CLI for storing and retrieving research documents and plans. The kb binary is automatically downloaded on first session start via a SessionStart hook.
+Uses the [kb](https://github.com/misham/kb) CLI for storing and retrieving research documents and plans. The `kb` binary must be installed in your system PATH. A SessionStart hook verifies availability and configures git merge support.

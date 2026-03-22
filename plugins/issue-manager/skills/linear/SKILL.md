@@ -15,9 +15,9 @@ version: 0.1.0
 
 # Linear Integration via lnr CLI
 
-Use the `lnr` CLI for fast, focused access to Linear issue tracking, project management, and sprint planning. The binary is at `${CLAUDE_PLUGIN_ROOT}/bin/lnr` and is auto-installed by the SessionStart hook.
+Use the `lnr` CLI for fast, focused access to Linear issue tracking, project management, and sprint planning. The `lnr` binary must be installed in your system PATH. The SessionStart hook verifies it is available.
 
-**All commands require `--plain`** for machine-readable output suitable for LLM consumption. In all examples below, `lnr` refers to `${CLAUDE_PLUGIN_ROOT}/bin/lnr`.
+**All commands require `--plain`** for machine-readable output suitable for LLM consumption.
 
 **Authentication:** If any command returns an auth error, instruct the user to run `/issue-manager:login` to re-authenticate.
 

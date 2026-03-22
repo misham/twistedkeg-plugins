@@ -6,11 +6,14 @@ Research-driven development workflow with kb-backed planning, TDD implementation
 
 | Command | Description |
 |---------|-------------|
+| `/gather_requirements` | Interactively gather feature requirements |
 | `/research_codebase` | Research codebase and store findings in kb database |
 | `/create_plan` | Create implementation plans through interactive research and iteration |
 | `/implement_plan` | Implement plans with TDD cycles and phase gates |
+| `/validate` | Post-implementation validation against plan and requirements |
 | `/compact_plan` | Compact finished plans, import to kb, clean up source files |
 | `/commit` | Create git commits with user approval, no Claude attribution |
+| `/improve` | Promote feedback patterns into permanent skill rules |
 
 ## Agents
 
@@ -27,15 +30,20 @@ Research-driven development workflow with kb-backed planning, TDD implementation
 
 | Skill | Triggers |
 |-------|----------|
+| requirements | "gather requirements", "define a feature" |
 | research | "research codebase", "investigate how X works" |
 | planning | "create plan", "implementation plan" |
 | implementation | "implement plan", "execute plan" |
+| validation | "validate implementation", "run validation" |
+| kb | "search kb", "import into kb", "kb commands" |
 | maintenance | "compact plan", "archive plan" |
 | commit | "commit changes", "create commit" |
+| improve | "improve development-flow skills", "promote feedback" |
+| visual-companion | "show a mockup", "visual comparison" |
 
 ## KB Integration
 
-This plugin uses the [kb](https://github.com/misham/kb) CLI for storing and retrieving research documents and plans. The kb binary is automatically downloaded on first session start via a SessionStart hook.
+This plugin uses the [kb](https://github.com/misham/kb) CLI for storing and retrieving research documents and plans. The `kb` binary must be installed in your system PATH. A SessionStart hook verifies availability and configures git merge support.
 
 ## Development Workflow
 

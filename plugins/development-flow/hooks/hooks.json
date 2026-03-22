@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ${CLAUDE_PLUGIN_ROOT}/scripts/install-kb.sh",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/scripts/check-kb.sh",
             "timeout": 30
           }
         ]

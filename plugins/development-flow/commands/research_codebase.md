@@ -2,7 +2,7 @@
 description: Research codebase and store findings in kb database
 model: opus
 argument-hint: [research query]
-allowed-tools: Read, Write, Edit, Grep, Glob, Bash(${CLAUDE_PLUGIN_ROOT}/bin/kb:*), Bash(git:*), Bash(gh:*), Bash(${CLAUDE_PLUGIN_ROOT}/scripts/*), Agent, TodoWrite
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash(kb:*), Bash(git:*), Bash(gh:*), Bash(${CLAUDE_PLUGIN_ROOT}/scripts/*), Agent, TodoWrite
 ---
 
 # Research Codebase (KB)
@@ -22,18 +22,18 @@ If `$ARGUMENTS` is provided, use it as the research query and skip the Initial S
 
 ## KB Tool
 
-The `kb` CLI is available at `${CLAUDE_PLUGIN_ROOT}/bin/kb`. The database path should always be specified with `--db kb.db` relative to the project root. Use `--plain` for machine-readable output.
+The `kb` CLI must be installed in your system PATH. The database path should always be specified with `--db kb.db` relative to the project root. Use `--plain` for machine-readable output.
 
 Key commands:
-- `${CLAUDE_PLUGIN_ROOT}/bin/kb search <query> --db kb.db --plain` — Search existing knowledge
-- `${CLAUDE_PLUGIN_ROOT}/bin/kb search <query> -t research --db kb.db --plain` — Search only research documents
-- `${CLAUDE_PLUGIN_ROOT}/bin/kb search <query> -t requirements --db kb.db --plain` — Search requirements documents
-- `${CLAUDE_PLUGIN_ROOT}/bin/kb list --db kb.db --plain` — List all documents
-- `${CLAUDE_PLUGIN_ROOT}/bin/kb list -t research --db kb.db --plain` — List research documents
-- `${CLAUDE_PLUGIN_ROOT}/bin/kb get <id> --db kb.db --plain` — Get a document by ID
-- `${CLAUDE_PLUGIN_ROOT}/bin/kb import <file> -t research --db kb.db --plain` — Import a markdown file as research
-- `${CLAUDE_PLUGIN_ROOT}/bin/kb links <id> --db kb.db --plain` — Show linked documents
-- `${CLAUDE_PLUGIN_ROOT}/bin/kb link <id1> <id2> -r related --db kb.db --plain` — Link two documents
+- `kb search <query> --db kb.db --plain` — Search existing knowledge
+- `kb search <query> -t research --db kb.db --plain` — Search only research documents
+- `kb search <query> -t requirements --db kb.db --plain` — Search requirements documents
+- `kb list --db kb.db --plain` — List all documents
+- `kb list -t research --db kb.db --plain` — List research documents
+- `kb get <id> --db kb.db --plain` — Get a document by ID
+- `kb import <file> -t research --db kb.db --plain` — Import a markdown file as research
+- `kb links <id> --db kb.db --plain` — Show linked documents
+- `kb link <id1> <id2> -r related --db kb.db --plain` — Link two documents
 
 ## Initial Setup:
 
@@ -54,8 +54,8 @@ If `$ARGUMENTS` was provided, proceed immediately with it as the research query.
    - This ensures you have full context before decomposing the research
 
 2. **Search existing knowledge base for prior research:**
-   - Run `${CLAUDE_PLUGIN_ROOT}/bin/kb search "<relevant terms>" --db kb.db --plain` to find related prior research
-   - Run `${CLAUDE_PLUGIN_ROOT}/bin/kb search "<relevant terms>" -t requirements --db kb.db --plain` to find related requirements documents
+   - Run `kb search "<relevant terms>" --db kb.db --plain` to find related prior research
+   - Run `kb search "<relevant terms>" -t requirements --db kb.db --plain` to find related requirements documents
    - Note the IDs and titles of relevant documents — do NOT read them inline with `kb get`
    - These will be analyzed by background agents in step 4
    - Use prior findings as supplementary context, but always verify against live code
@@ -181,11 +181,11 @@ If `$ARGUMENTS` was provided, proceed immediately with it as the research query.
 9. **Import into kb:**
    - Import the document into kb:
      ```bash
-     ${CLAUDE_PLUGIN_ROOT}/bin/kb import docs/ai/research/<filename>.md -t research --db kb.db --plain
+     kb import docs/ai/research/<filename>.md -t research --db kb.db --plain
      ```
    - If related kb documents were found in step 2, link them:
      ```bash
-     ${CLAUDE_PLUGIN_ROOT}/bin/kb link <new_id> <related_id> -r related --db kb.db --plain
+     kb link <new_id> <related_id> -r related --db kb.db --plain
      ```
    - Keep the markdown file in `docs/ai/research/` — it will be cleaned up separately when the feature is complete
 
@@ -196,7 +196,7 @@ If `$ARGUMENTS` was provided, proceed immediately with it as the research query.
    - Ask if they have follow-up questions or need clarification
 
 11. **Handle follow-up questions:**
-    - If the user has follow-up questions, retrieve the original document with `${CLAUDE_PLUGIN_ROOT}/bin/kb get <id> --db kb.db --plain`
+    - If the user has follow-up questions, retrieve the original document with `kb get <id> --db kb.db --plain`
     - Write an updated version of the document to a temporary file
     - Update the frontmatter fields `last_updated` and `last_updated_by` to reflect the update
     - Add `last_updated_note: "Added follow-up research for [brief description]"` to frontmatter

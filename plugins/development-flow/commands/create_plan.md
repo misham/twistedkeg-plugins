@@ -2,7 +2,7 @@
 description: Create detailed implementation plans through interactive research and iteration, using kb database for context
 model: opus
 argument-hint: [file path, ticket reference, or kb document ID]
-allowed-tools: Read, Write, Edit, Grep, Glob, Bash(${CLAUDE_PLUGIN_ROOT}/bin/kb:*), Bash(git:*), Bash(gh:*), Bash(${CLAUDE_PLUGIN_ROOT}/scripts/*), Agent, TodoWrite
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash(kb:*), Bash(git:*), Bash(gh:*), Bash(${CLAUDE_PLUGIN_ROOT}/scripts/*), Agent, TodoWrite
 ---
 
 # Create Implementation Plan (KB)
@@ -13,14 +13,14 @@ If `$ARGUMENTS` is provided, use it as the input (file path or ticket reference)
 
 ## KB Tool
 
-The `kb` CLI is available at `${CLAUDE_PLUGIN_ROOT}/bin/kb`. The database path should always be specified with `--db kb.db` relative to the project root. Use `--plain` for machine-readable output.
+The `kb` CLI must be installed in your system PATH. The database path should always be specified with `--db kb.db` relative to the project root. Use `--plain` for machine-readable output.
 
 Key commands:
-- `${CLAUDE_PLUGIN_ROOT}/bin/kb search <query> --db kb.db --plain` — Search existing knowledge
-- `${CLAUDE_PLUGIN_ROOT}/bin/kb search <query> -t plan --db kb.db --plain` — Search only plan documents
-- `${CLAUDE_PLUGIN_ROOT}/bin/kb search <query> -t research --db kb.db --plain` — Search only research documents
-- `${CLAUDE_PLUGIN_ROOT}/bin/kb search <query> -t requirements --db kb.db --plain` — Search requirements documents
-- `${CLAUDE_PLUGIN_ROOT}/bin/kb get <id> --db kb.db --plain` — Get a document by ID
+- `kb search <query> --db kb.db --plain` — Search existing knowledge
+- `kb search <query> -t plan --db kb.db --plain` — Search only plan documents
+- `kb search <query> -t research --db kb.db --plain` — Search only research documents
+- `kb search <query> -t requirements --db kb.db --plain` — Search requirements documents
+- `kb get <id> --db kb.db --plain` — Get a document by ID
 
 ## Initial Response
 
@@ -28,7 +28,7 @@ When this command is invoked:
 
 1. **Check if arguments were provided** (`$ARGUMENTS`):
    - If `$ARGUMENTS` contains a file path, ticket reference, or kb document ID, skip the default message
-   - For kb document IDs, retrieve with `${CLAUDE_PLUGIN_ROOT}/bin/kb get <id> --db kb.db --plain`
+   - For kb document IDs, retrieve with `kb get <id> --db kb.db --plain`
    - For file paths, read them FULLY
    - Begin the research process
 
@@ -62,8 +62,8 @@ Then wait for the user's input.
    - **NEVER** read files partially - if a file is mentioned, read it completely
 
 2. **Search existing knowledge base for prior research, plans, and requirements:**
-   - Run `${CLAUDE_PLUGIN_ROOT}/bin/kb search "<relevant terms>" --db kb.db --plain` to find related prior work
-   - Run `${CLAUDE_PLUGIN_ROOT}/bin/kb search "<relevant terms>" -t requirements --db kb.db --plain` to find related requirements documents
+   - Run `kb search "<relevant terms>" --db kb.db --plain` to find related prior work
+   - Run `kb search "<relevant terms>" -t requirements --db kb.db --plain` to find related requirements documents
    - Note the IDs and titles of relevant documents — do NOT read them inline with `kb get`
    - These will be analyzed by background agents in step 3
    - Use prior findings as supplementary context, but always verify against live code
