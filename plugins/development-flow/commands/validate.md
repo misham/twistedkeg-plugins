@@ -24,7 +24,15 @@ You are running post-implementation validation for a completed plan. This comman
    - Extract acceptance criteria
    - If no requirements doc found, use the plan's `## Desired End State` and `## Final Manual Verification`
 
-4. **Present what was discovered**:
+4. **Discover prior validation reports** for the same plan:
+   - If the plan was resolved from a kb ID, use `${CLAUDE_PLUGIN_ROOT}/bin/kb links <plan_kb_id> --db kb.db --plain` and filter results for type `validation`
+   - Search kb by plan title as a fallback: `${CLAUDE_PLUGIN_ROOT}/bin/kb search "<plan title>" -t validation --db kb.db --plain`
+   - Scan `docs/ai/validations/` for files with matching `plan_path` or `plan_kb_id` in frontmatter (most reliable — catches reports not yet linked or with title mismatches)
+   - Deduplicate results across all three discovery methods
+   - If prior reports found, retrieve the most recent one: use `${CLAUDE_PLUGIN_ROOT}/bin/kb get <id> --db kb.db --plain` if a kb ID is available, or read the file directly if discovered only via filesystem scan. Extract which layers had issues, which acceptance criteria failed, and the overall result
+   - If no prior reports exist, skip silently (no error, no message)
+
+5. **Present what was discovered**:
 
 ```
 ═══════════════════════════════════════
@@ -40,6 +48,14 @@ Acceptance criteria found:
 ...
 
 Proceeding with 5 validation layers.
+
+[If prior validation reports were found:]
+Prior validation reports found: [N]
+Most recent (kb #X, YYYY-MM-DD):
+  - Overall: [ISSUES_FOUND/ALL_PASS]
+  - Issues: [brief summary of failed layers/criteria]
+
+This run will check whether previously identified issues have been resolved.
 ═══════════════════════════════════════
 ```
 
@@ -142,6 +158,12 @@ Layer 5 - Browser Validation:      [PASS/FAIL/SKIPPED]
 
 Overall: [ALL PASS / X ISSUES FOUND]
 
+[If prior validation report exists:]
+Changes from prior run:
+  Resolved: [issues that were FAIL, now PASS]
+  Persisting: [issues still FAIL]
+  New: [issues that were PASS or not checked, now FAIL]
+
 [If all pass:]
 Validation complete. You can proceed with `/commit`.
 
@@ -151,8 +173,41 @@ and re-run `/validate` to verify fixes.
 ═══════════════════════════════════════
 ```
 
+## Report Persistence
+
+After presenting the final report, persist the validation results:
+
+1. **Gather metadata**:
+   ```bash
+   ${CLAUDE_PLUGIN_ROOT}/scripts/spec_metadata.sh
+   ```
+
+2. **Create the validations directory**:
+   ```bash
+   mkdir -p docs/ai/validations
+   ```
+
+3. **Write the validation report** using the template from `${CLAUDE_PLUGIN_ROOT}/skills/validation/references/report-template.md`. Include all layer results, the acceptance criteria traceability table, and the overall verdict.
+
+4. **Import to kb**:
+   ```bash
+   ${CLAUDE_PLUGIN_ROOT}/bin/kb import docs/ai/validations/<filename>.md -t validation --db kb.db --plain
+   ```
+
+5. **Link to the plan** if the plan was resolved from a kb ID:
+   ```bash
+   ${CLAUDE_PLUGIN_ROOT}/bin/kb link <report_id> <plan_kb_id> -r related --db kb.db --plain
+   ```
+
+6. **Present the report location**:
+   ```
+   Validation report saved:
+   - File: docs/ai/validations/<filename>.md
+   - KB ID: <id>
+   ```
+
 ## Notes
 
 - Layer 2 status is "REVIEW" if there are Important (but no Critical) findings — the user decides whether to act on them
 - If the user re-runs `/validate`, all layers run fresh — no partial re-validation
-- This command does not modify any files — it is read-only analysis
+- The validation report file persists in `docs/ai/validations/` and is cleaned up by `/compact_plan`

@@ -5,7 +5,7 @@
 Use the safety script for import-and-cleanup:
 
 ```bash
-${CLAUDE_PLUGIN_ROOT}/scripts/kb_import_and_cleanup.sh plan <plan_file> [research_files...] [requirements_files...]
+${CLAUDE_PLUGIN_ROOT}/scripts/kb_import_and_cleanup.sh plan <plan_file> [research_files...] [requirements_files...] [validation_files...]
 ```
 
 The script verifies the import before deleting source files. Never delete files manually.
@@ -13,6 +13,10 @@ The script verifies the import before deleting source files. Never delete files 
 ## Requirements Files
 
 Requirements files (`docs/ai/requirements/*.md`) are already imported into kb during `/gather_requirements`. Include them in the cleanup script call **only for file deletion**, not re-import. The script handles this correctly — it imports the first argument and deletes all listed files after verification.
+
+## Validation Report Files
+
+Validation report files (`docs/ai/validations/*.md`) are already imported into kb during `/validate`. Include them in the cleanup script call **only for file deletion**, same as requirements files.
 
 ## Linking
 

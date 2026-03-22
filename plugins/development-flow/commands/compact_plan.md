@@ -42,26 +42,29 @@ Look inside the plan for referenced research and requirements documents:
 3. Look for references to `docs/ai/requirements/*.md` files
 4. Look for kb document IDs (e.g., `kb:42`) — these are already in kb and don't need re-importing, but the corresponding `docs/ai/research/*.md` and `docs/ai/requirements/*.md` files can be deleted
 5. If no requirements file is referenced in the plan, scan `docs/ai/requirements/` for files whose topic matches the plan's feature name
+6. Look for references to `docs/ai/validations/*.md` files
+7. Search kb for validation reports linked to this plan: `${CLAUDE_PLUGIN_ROOT}/bin/kb search "<plan title>" -t validation --db kb.db --plain`
+8. For any validation reports found in kb, check if corresponding files exist in `docs/ai/validations/`
 
-Collect all `docs/ai/research/*.md` and `docs/ai/requirements/*.md` file paths that are referenced by this plan.
+Collect all `docs/ai/research/*.md`, `docs/ai/requirements/*.md`, and `docs/ai/validations/*.md` file paths that are referenced by or associated with this plan.
 
 ## Step 4: Import and Clean Up
 
 Use the safety script to import the compacted plan and delete source files:
 
 ```bash
-${CLAUDE_PLUGIN_ROOT}/scripts/kb_import_and_cleanup.sh plan <compacted_plan_file> [research_file_1] [research_file_2] [requirements_file_1] ...
+${CLAUDE_PLUGIN_ROOT}/scripts/kb_import_and_cleanup.sh plan <compacted_plan_file> [research_file_1] [research_file_2] [requirements_file_1] [validation_file_1] ...
 ```
 
 The script will:
 1. Import the compacted plan into kb as type `plan`
 2. Verify the import by retrieving the document and checking content length
-3. Only delete files after successful verification (plan, research, and requirements files)
+3. Only delete files after successful verification (plan, research, requirements, and validation files)
 4. Print the new kb document ID
 
 **IMPORTANT**: If the script fails or reports an error, do NOT manually delete any files. Report the error to the user.
 
-**Note**: Requirements files are already imported into kb during `/gather_requirements`. They are included here only for file cleanup — the kb import of the plan does not re-import them.
+**Note**: Requirements files are already imported into kb during `/gather_requirements`. Validation report files are already imported into kb during `/validate`. Both are included here only for file cleanup — the kb import of the plan does not re-import them.
 
 ## Step 5: Link Related KB Documents
 

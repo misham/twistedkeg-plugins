@@ -28,6 +28,40 @@ For **code review:**
 - Run `git diff main...HEAD` for the full diff
 - Read the project's CLAUDE.md for conventions
 
+## Step 2.5: Discover Validation Context (Code Review Only)
+
+For **code review** mode only, check if prior validation reports exist:
+
+1. Look for the development-flow plugin's `kb` binary: search `~/.claude/plugins/cache/*/development-flow/*/bin/kb` and use the highest version number found. If not found, skip this step silently.
+2. If `kb` is available, search for validation reports matching the current branch:
+   ```bash
+   <kb_path> search "<branch name>" -t validation --db kb.db --plain
+   ```
+3. If results found, retrieve the most recent report:
+   ```bash
+   <kb_path> get <id> --db kb.db --plain
+   ```
+4. Include a summary in the agent dispatch prompt (Step 3):
+
+```
+## Prior Validation Context
+
+A validation report exists for this branch (kb #X, YYYY-MM-DD):
+- Layer 1 (Tests): [PASS/FAIL]
+- Layer 2 (Review): [PASS/FAIL/REVIEW]
+- Layer 3 (Coverage): [PASS/FAIL]
+- Layer 4 (Acceptance): [PASS/FAIL]
+- Layer 5 (Browser): [PASS/FAIL/SKIPPED]
+- Overall: [result]
+- [Key findings summary]
+
+Use this context to focus on areas that validation flagged or missed.
+Do not re-report issues already captured in the validation report unless
+you have additional insight.
+```
+
+5. If `kb` is not available or no reports found, skip silently — do not error or mention the absence.
+
 ## Step 3: Dispatch Reviewer Agent
 
 Launch the `thorough-reviewer` agent (via Task tool) with a prompt containing:

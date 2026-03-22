@@ -27,8 +27,9 @@ Validate completed implementations against requirements, code quality standards,
 2. Extract acceptance criteria from requirements doc
 3. Run validation layers in order (see `references/validation-layers.md`)
 4. Present validation report with pass/fail per layer and per criterion
-5. If all pass, indicate readiness for `/commit`
-6. Ask for session feedback (see `skills/improve/references/feedback.md`)
+5. Write validation report to `docs/ai/validations/` and import to kb (see `references/report-template.md`)
+6. If all pass, indicate readiness for `/commit`
+7. Ask for session feedback (see `skills/improve/references/feedback.md`)
 
 ## Key Rules
 
@@ -37,3 +38,4 @@ Validate completed implementations against requirements, code quality standards,
 - Browser validation is conditional — ask user or infer from context
 - Test coverage target is ~80% average, but configurable per project
 - Acceptance criteria require explicit evidence (test name, file:line, command output)
+- The validation report captures all layer results and is persisted for downstream consumers
