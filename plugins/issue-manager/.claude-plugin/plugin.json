@@ -1,0 +1,8 @@
+{
+  "name": "issue-manager",
+  "description": "Issue tracking integration via CLI tools (Linear via lnr, GitHub Issues planned)",
+  "version": "1.0.0",
+  "author": {
+    "name": "Misha Manulis"
+  }
+}

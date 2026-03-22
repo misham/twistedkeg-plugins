@@ -13,6 +13,11 @@
       "name": "development-flow",
       "source": "./plugins/development-flow",
       "description": "Research-driven development workflow with kb-backed planning, TDD implementation, and codebase research"
+    },
+    {
+      "name": "issue-manager",
+      "source": "./plugins/issue-manager",
+      "description": "Issue tracking integration via CLI tools (Linear via lnr, GitHub Issues planned)"
     }
   ]
 }
